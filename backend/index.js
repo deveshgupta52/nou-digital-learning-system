@@ -2,6 +2,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv'
 import cors from 'cors'
+import authRoute from './routes/authRoute.js'
 import student_route from './routes/studentRoutes.js'
 import adminRoute from './routes/Adminroutes.js';
 
@@ -9,6 +10,7 @@ dotenv.config()
 const app=express();
 app.use(cors())
 app.use(express.json())
+app.use('/api/students',authRoute)
 app.use('/api/students',student_route)
 app.use('/api/admin',adminRoute)
 connectDB()

@@ -1,16 +1,19 @@
-import express from 'express'
+import express from "express";
 import {
-  createStudent,
   getAllStudents,
-  getStudentByRoll
-} from '../controllers/studentController.js';
+  getStudentByRoll,
+  createStudent
+} from "../controllers/studentController.js";
 
+const router = express.Router();
 
-const router= express.Router();
+// ✅ Get all students (Admin use)
+router.get("/", getAllStudents);
 
-router.post('/', createStudent);          //ye student create karega
-router.get('/', getAllStudents);           //ye saare student ka data dega  
-router.get('/:rollno', getStudentByRoll);   //ye rollno. se student data dega
+// ✅ Get student by roll number
+router.get("/:rollno", getStudentByRoll);
 
+// ✅ Create/Register new student
+router.post("/register", createStudent);
 
-export default router
+export default router;
