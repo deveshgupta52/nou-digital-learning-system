@@ -19,14 +19,15 @@ function App() {
   return (
     <>
       <div className="container-fluid">
+
         <BrowserRouter>
         
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/admin' element={<Adminlogin />} />
-                      <Route path='/admindash' element={<Dashboard />} />
-                      <Route path='/register' element={<Registration />} />
-                       <Route path='/login' element={<Userlogin />} />
+          <Route path='/admindash' element={<Dashboard />} />
+          <Route path='/register' element={<Registration />} />
+          <Route path='/login' element={<Userlogin />} />
 
 
 
