@@ -4,10 +4,12 @@ const adminRoute=express.Router()
 import adminModel from '../models/AdminModel.js'
 
 adminRoute.get('',async (req,res)=>{
-     const ad=await adminModel.find()
+    const ad=await adminModel.find()
     res.json({'msg':"success","value":ad})
     
-})
+});
+
+
 adminRoute.post('',async(req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
@@ -20,4 +22,6 @@ adminRoute.post('',async(req,res)=>{
         return res.json({"msg":"failed"})
     }
 })
+
+
  export default adminRoute
