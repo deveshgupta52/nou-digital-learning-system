@@ -5,12 +5,15 @@ const courseSchema = mongoose.Schema({
         type : String,
         unique : true,
         required : true
-        
     },
     
     courseName : {
         type : String,
         required : true
+    },
+
+    Duration : {
+        type : String
     }
 });
 

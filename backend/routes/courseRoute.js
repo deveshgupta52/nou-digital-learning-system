@@ -29,10 +29,10 @@ courseRoute.get('/:code', async (req, res) => {
 
 // To ADD the new Course
 courseRoute.post('', async (req,res) => {
-    const {code, name} = req.body;
     const course = await courseModel.create({
-        courseCode : code,
-        courseName : name
+        courseCode : req.body.code,
+        courseName : req.body.name,
+        Duration : req.body.Duration
     });
 
     res.json({
@@ -51,7 +51,8 @@ courseRoute.put('/:code', async (req,res) => {
 
     {
         courseCode : code,
-        courseName : req.body.name
+        courseName : req.body.name,
+        Duration : req.body.Duration
     }, 
 
     {
