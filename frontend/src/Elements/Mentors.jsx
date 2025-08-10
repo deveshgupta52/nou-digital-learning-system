@@ -24,14 +24,14 @@ const mentors = [
 ];
 
 const MentorCard = ({ name, title, image }) => (
-  <div className="col-2 bg-light border rounded-1">
+  <div className="col-2 bg-light border rounded-1 mb-5">
     <div className="row">
       <div className="col d-flex justify-content-center mt-3">
         <div
           className="d-flex justify-content-center align-items-center"
           style={{
-            height: "55px",
-            width: "55px",
+            height: "180px",
+            width: "200px",
             backgroundColor: "white",
             border: "1px solid darkred",
             borderRadius: "50%"
@@ -41,8 +41,8 @@ const MentorCard = ({ name, title, image }) => (
             src={image}
             alt={name}
             style={{
-              height: "50px",
-              width: "50px",
+              height: "150px",
+              width: "150px",
               border: "1px solid darkred",
               borderRadius: "50%"
             }}
@@ -68,14 +68,14 @@ const Mentors = () => {
           <div className="col-1 ms-5 pe-0">
             <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">OUR MENTORS</h2>
           </div>
-          <div className="col-1 orange-line mb-3 ms-3"></div>
+          
           <div className="col-7"></div>
         </div>
 
         {/* Sub-header */}
         <div className="row">
           <div className="col-md-7 fs-3 fw-bold ms-5">
-            <p>ADMINISTRATIVE <span>SETUP</span></p>
+            <p>ADMINISTRATIVE <span className="theme-text-orange">SETUP</span></p>
           </div>
           <div className="col-md-4"></div>
         </div>
