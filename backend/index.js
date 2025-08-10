@@ -5,14 +5,20 @@ import cors from 'cors'
 import authRoute from './routes/authRoute.js'
 import student_route from './routes/studentRoutes.js'
 import adminRoute from './routes/Adminroutes.js';
+import courseRoute from './routes/courseRoute.js';
+
 
 dotenv.config()
 const app=express();
-app.use(cors())
 app.use(express.json())
+
+app.use(cors())
+
+app.use('/courses', courseRoute);
 app.use('/api/students',authRoute)
 app.use('/api/students',student_route)
 app.use('/api/admin',adminRoute)
+
 connectDB()
 
 
