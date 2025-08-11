@@ -1,22 +1,21 @@
-
 import bcrypt from 'bcryptjs';
 import Student from '../models/Student.js';
 import Login from '../models/Login.js';
 
-
+// ✅ Get all students
 export const getAllStudents = async (req, res) => {
   try {
-    const students = await Student.find();
+    const students = await Student.find().select('-password'); // password hide
     res.json(students);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-
+// ✅ Get student by roll number
 export const getStudentByRoll = async (req, res) => {
   try {
-    const student = await Student.findOne({ rollno: req.params.rollno });
+    const student = await Student.findOne({ rollno: req.params.rollno }).select('-password');
     if (!student) return res.status(404).json({ message: 'Student not found' });
     res.json(student);
   } catch (error) {
@@ -24,22 +23,37 @@ export const getStudentByRoll = async (req, res) => {
   }
 };
 
+// ✅ Register/Create student
 export const createStudent = async (req, res) => {
   try {
-    const student = new Student(req.body);
+    const { emailaddress, password } = req.body;
+
+    // 🔹 Check duplicate email in Student table
+    const existingStudent = await Student.findOne({ emailaddress });
+    if (existingStudent) {
+      return res.status(400).json({ message: "Email already registered" });
+    }
+
+    // 🔹 Check duplicate login record
+    const existingLogin = await Login.findOne({ userid: emailaddress });
+    if (existingLogin) {
+      return res.status(400).json({ message: "Login already exists for this email" });
+    }
+
+    // 🔹 Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // 🔹 Save Student (hashed password in DB for safety)
+    const student = new Student({ ...req.body, password: hashedPassword });
     const savedStudent = await student.save();
 
-    // ✅ Encrypt user-given password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    // ✅ Create login using form password
+    // 🔹 Save login record
     const login = new Login({
-      userid: savedStudent.emailaddress,
+      userid: emailaddress,
       password: hashedPassword,
       usertype: 'student',
       status: 'active'
     });
-
     await login.save();
 
     res.status(201).json({
@@ -50,4 +64,5 @@ export const createStudent = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log("hello")
 };

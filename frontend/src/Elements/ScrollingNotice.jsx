@@ -2,24 +2,24 @@ import React from 'react'
 
 function ScrollingNotice() {
   return (
-    <div className="row bg-warning mt-3 orange" style={{ height: "80px" }}>
-      <marquee scrollAmount={20} direction="left">
-        <div className="container-fluid d-flex pt-2 gap-2">
-          <p className="orangered p-2 theme-text-white fw-bold">
-            The portal is easy to access & highly user
+    <div className="row mt-3 orange shadow-lg" style={{ height: "90px" }} >
+      <marquee scrollAmount={20} direction="left" onMouseOver={(e)=>e.target.stop()} onMouseOut={(e)=>e.target.start()}>
+        <div className="container-fluid d-flex pt-3 gap-4">
+          <div className="orangered p-3 theme-text-white fw-bold rounded shadow">
+            Advanced Digital Assessment System with
             <br />
-            friendly for the students & study centres.
-          </p>
-          <p className="orangered p-2 theme-text-white fw-bold">
-            The portal is fully secured and accessible
+            Real-time Analytics and Reporting
+          </div>
+          <div className="orangered p-3 theme-text-white fw-bold rounded shadow">
+            Secure, Scalable and User-friendly
             <br />
-            24 x 7 to its authorised users.
-          </p>
-          <p className="orangered p-2 theme-text-white fw-bold">
-            The portal is easy to access & highly user
+            Assessment Platform for Modern Education
+          </div>
+          <div className="orangered p-3 theme-text-white fw-bold rounded shadow">
+            AI-Powered Assessment Tools with
             <br />
-            friendly for the students & study centres.
-          </p>
+            Comprehensive Performance Tracking
+          </div>
         </div>
       </marquee>
     </div>

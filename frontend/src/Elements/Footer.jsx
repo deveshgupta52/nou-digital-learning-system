@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <div className="row theme-bg-color p-5">
+    <div className="row orange p-5">
       {/* Column 1: Logo + Description + Social Icons */}
       <div className="col-3">
         <div
@@ -30,25 +30,22 @@ function Footer() {
             recognized by Distance Education Council, IGNOU, Maidan Garhi, New Delhi.
           </p>
         </div>
-        <div className="row">
-          <ul className="list-unstyled d-flex justify-content-center gap-2">
-            {['facebook-f', 'google-plus-g', 'google-plus-g', 'linkedin-in', 'instagram'].map((icon, index) => (
-              <li key={index}>
-                <a
-                  href="#"
-                  style={{
-                    textDecoration: 'none',
-                    color: 'white',
-                    backgroundColor: 'orange',
-                    borderRadius: '50%',
-                    padding: '7px',
-                  }}
-                >
-                  <i className={`fa-brands fa-${icon}`}></i>
-                </a>
-              </li>
-            ))}
-          </ul>
+       <div className="col-sm d-flex gap-3 align-items-center justify-content-center">
+          <a href="#" className="social-icon">
+            <i className="fa-brands fa-twitter"></i>
+          </a>
+          <a href="#" className="social-icon">
+            <i className="fa-brands fa-facebook"></i>
+          </a>
+          <a href="#" className="social-icon">
+            <i className="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" className="social-icon">
+            <i className="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="#" className="social-icon">
+            <i className="fa-brands fa-youtube"></i>
+          </a>
         </div>
       </div>
 
@@ -61,11 +58,12 @@ function Footer() {
           <ul className="list-unstyled d-flex flex-column gap-2">
             {['Home', 'About Portal', 'Services', 'Contact Us', 'Courses', 'Study Center'].map((link, index) => (
               <li
+                 
                 key={index}
                 className="theme-text-white"
                 style={{ fontSize: 'smaller' }}
               >
-                <i className="fa-solid fa-arrow-right me-2"></i> {link}
+                <i className="fa-solid fa-arrow-right text-warning me-2"></i> {link}
               </li>
             ))}
           </ul>
@@ -79,7 +77,7 @@ function Footer() {
         </div>
         <div className="row mt-4">
           <p className="theme-text-white fw-semibold fs-6">
-            <i className="fa-solid fa-location-dot me-2"></i> NOU
+            <i className="fa-solid fa-location-dot me-2 text-warning"></i> NOU
           </p>
         </div>
         <div className="row">
@@ -92,7 +90,7 @@ function Footer() {
           </p>
         </div>
         <div className="row mt-3 theme-text-white">
-          <i className="fa-solid fa-phone-flip me-2"></i> +91 7080102007
+          <i className="fa-solid fa-phone-flip me-2 text-warning"></i> +91 7080102007
         </div>
         <div className="row">
           <p
@@ -127,7 +125,7 @@ function Footer() {
             placeholder="Email"
             style={{
               backgroundColor: 'rgb(65, 64, 64)',
-              width: '150px',
+              width: '500px',
               height: '50px',
               border: 'none',
             }}
