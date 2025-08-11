@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ function Registration() {
     emailaddress: '',
     password: ''
   });
+  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     setFormData({
@@ -23,10 +25,33 @@ function Registration() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log("Registration data:", formData);
-    window.alert("Registration submitted successfully!");
+    try{
+const res=await axios.post("http://localhost:3000/api/students/register",formData);
+    console.log(res.data);
+    setFormData({
+    rollno: '',
+    name: '',
+    fname: '',
+    mname: '',
+    gender: '',
+    address: '',
+    program: '',
+    branch: '',
+    year: '',
+    contactno: '',
+    emailaddress: '',
+    password: ''
+  });
+
+    }catch(err){
+     console.error(err.response?.data);
+  setMessage(err.response?.data?.message || "Registration failed!");
+  console.log(message)
+    }
+    
+  
   };
 
   const styles = {
