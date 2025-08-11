@@ -6,6 +6,7 @@ import authRoute from './routes/authRoute.js'
 import student_route from './routes/studentRoutes.js'
 import adminRoute from './routes/Adminroutes.js';
 import courseRoute from './routes/courseRoute.js';
+import newsRoutes from './routes/newsRoute.js';
 
 
 dotenv.config()
@@ -18,6 +19,8 @@ app.use('/courses', courseRoute);
 app.use('/api/students',authRoute)
 app.use('/api/students',student_route)
 app.use('/api/admin',adminRoute)
+app.use('/api/news',newsRoutes)
+
 
 connectDB()
 

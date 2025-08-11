@@ -1,7 +1,7 @@
-import React from 'react';
-import { 
-  Users, 
-  BookOpen, 
+import React, { useState, useEffect } from 'react';
+import {
+  Users,
+  BookOpen,
   HelpCircle, 
   FileText, 
   Plus, 
@@ -14,8 +14,11 @@ import {
   Search,
   User
 } from 'lucide-react';
+import News from '../Elements/News';
 
 const AdminDashboard = () => {
+  const [activeSection, setActiveSection] = useState('dashboard');
+  
   const sidebarStyle = {
     background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)',
     minHeight: '100vh',
@@ -63,14 +66,14 @@ const AdminDashboard = () => {
   ];
 
   const sidebarItems = [
-    { icon: <BarChart3 size={20} />, label: 'Dashboard', active: true, href: '#dashboard' },
-    { icon: <Users size={20} />, label: 'Students', active: false, href: '#students' },
-    { icon: <HelpCircle size={20} />, label: 'Enquiries', active: false, href: '#enquiries' },
-    { icon: <Bell size={20} />, label: 'News', active: false, href: '#news' },
-    { icon: <BookOpen size={20} />, label: 'Courses', active: false, href: '#courses' },
-    { icon: <Search size={20} />, label: 'Question Bank', active: false, href: '#question-bank' },
-    { icon: <FileText size={20} />, label: 'Examinations', active: false, href: '#examinations' },
-    { icon: <Settings size={20} />, label: 'Results', active: false, href: '#results' }
+    { icon: <BarChart3 size={20} />, label: 'Dashboard', active: activeSection === 'dashboard', onClick: () => setActiveSection('dashboard') },
+    { icon: <Users size={20} />, label: 'Students', active: activeSection === 'students', onClick: () => setActiveSection('students') },
+    { icon: <HelpCircle size={20} />, label: 'Enquiries', active: activeSection === 'enquiries', onClick: () => setActiveSection('enquiries') },
+    { icon: <Bell size={20} />, label: 'News', active: activeSection === 'news', onClick: () => setActiveSection('news') },
+    { icon: <BookOpen size={20} />, label: 'Courses', active: activeSection === 'courses', onClick: () => setActiveSection('courses') },
+    { icon: <Search size={20} />, label: 'Question Bank', active: activeSection === 'question-bank', onClick: () => setActiveSection('question-bank') },
+    { icon: <FileText size={20} />, label: 'Examinations', active: activeSection === 'examinations', onClick: () => setActiveSection('examinations') },
+    { icon: <Settings size={20} />, label: 'Results', active: activeSection === 'results', onClick: () => setActiveSection('results') }
   ];
 
   const quickActions = [
@@ -119,6 +122,7 @@ const AdminDashboard = () => {
                     transition: 'all 0.3s ease',
                     backdropFilter: item.active ? 'blur(10px)' : 'none'
                   }}
+                  onClick={item.onClick}
                   onMouseEnter={(e) => {
                     if (!item.active) {
                       e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
@@ -145,9 +149,15 @@ const AdminDashboard = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <h2 className="mb-1" style={{ color: '#2c3e50', fontWeight: '700' }}>
-                  Admin Dashboard
+                  {activeSection === 'dashboard' ? 'Admin Dashboard' :
+                   activeSection === 'news' ? 'News Management' :
+                   activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
                 </h2>
-                <p className="text-muted mb-0">Welcome back! Here's what's happening at Digital Learning System.</p>
+                <p className="text-muted mb-0">
+                  {activeSection === 'dashboard' ? "Welcome back! Here's what's happening at Digital Learning System." :
+                   activeSection === 'news' ? "Manage and view all news articles." :
+                   "Section details will appear here."}
+                </p>
               </div>
               <div className="d-flex align-items-center">
                 <div 
@@ -174,149 +184,167 @@ const AdminDashboard = () => {
               </div>
             </div>
           </div>
-
+  
           <div className="px-4">
-            {/* Stats Cards */}
-            <div className="row mb-4">
-              {gradientCards.map((card, index) => (
-                <div key={index} className="col-md-6 col-lg-3 mb-4">
-                  <div 
-                    className="card h-100 text-white"
-                    style={{
-                      ...cardStyle,
-                      background: card.gradient,
-                      cursor: 'pointer'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-5px)';
-                      e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 140, 0, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
-                    }}
-                  >
-                    <div className="card-body p-4">
-                      <div className="d-flex justify-content-between align-items-start mb-3">
-                        <div style={{ opacity: 0.9 }}>
-                          {card.icon}
+            {/* Conditional Rendering based on navigate */}
+            {activeSection === 'dashboard' ? (
+              <>
+                {/* Stats Cards */}
+                <div className="row mb-4">
+                  {gradientCards.map((card, index) => (
+                    <div key={index} className="col-md-6 col-lg-3 mb-4">
+                      <div
+                        className="card h-100 text-white"
+                        style={{
+                          ...cardStyle,
+                          background: card.gradient,
+                          cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-5px)';
+                          e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 140, 0, 0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                        }}
+                      >
+                        <div className="card-body p-4">
+                          <div className="d-flex justify-content-between align-items-start mb-3">
+                            <div style={{ opacity: 0.9 }}>
+                              {card.icon}
+                            </div>
+                          </div>
+                          <h1 className="display-4 fw-bold mb-2">{card.count}</h1>
+                          <h6 className="fw-semibold mb-2" style={{ opacity: 0.95 }}>
+                            {card.title}
+                          </h6>
+                          <small style={{ opacity: 0.8 }}>{card.subtitle}</small>
                         </div>
                       </div>
-                      <h1 className="display-4 fw-bold mb-2">{card.count}</h1>
-                      <h6 className="fw-semibold mb-2" style={{ opacity: 0.95 }}>
-                        {card.title}
-                      </h6>
-                      <small style={{ opacity: 0.8 }}>{card.subtitle}</small>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            {/* Tables Row */}
-            <div className="row mb-4">
-              {/* Recent Enquiries */}
-              <div className="col-lg-6 mb-4">
-                <div className="card" style={cardStyle}>
-                  <div 
-                    className="card-header text-white py-3"
-                    style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
-                  >
-                    <h5 className="mb-0 d-flex align-items-center">
-                      <HelpCircle size={20} className="me-2" />
-                      Recent Enquiries
-                    </h5>
-                  </div>
-                  <div className="card-body p-0">
-                    <div className="table-responsive">
-                      <table className="table table-hover mb-0">
-                        <thead style={{ backgroundColor: '#f8f9fa' }}>
-                          <tr>
-                            <th className="border-0 py-3 px-4" style={{ color: '#6c757d', fontWeight: '600' }}>Name</th>
-                            <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Subject</th>
-                            <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Date</th>
-                            <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Status</th>
-                            <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Priority</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="py-4 px-4 text-muted" colSpan={5} style={{ textAlign: 'center' }}>
-                              No enquiries found
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recent Registrations */}
-              <div className="col-lg-6 mb-4">
-                <div className="card" style={cardStyle}>
-                  <div 
-                    className="card-header text-white py-3"
-                    style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
-                  >
-                    <h5 className="mb-0 d-flex align-items-center">
-                      <Users size={20} className="me-2" />
-                      Recent Registrations
-                    </h5>
-                  </div>
-                  <div className="card-body p-4 text-center text-muted">
-                    <Users size={48} className="mb-3" style={{ opacity: 0.3 }} />
-                    <p className="mb-0">No recent registrations</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="row">
-              <div className="col-12">
-                <div className="card" style={cardStyle}>
-                  <div 
-                    className="card-header text-white py-3"
-                    style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
-                  >
-                    <h5 className="mb-0 d-flex align-items-center">
-                      <Zap size={20} className="me-2" />
-                      Quick Actions
-                    </h5>
-                  </div>
-                  <div className="card-body p-4">
-                    <div className="row">
-                      {quickActions.map((action, index) => (
-                        <div key={index} className="col-md-6 col-lg-3 mb-3">
-                          <button
-                            className="btn w-100 py-3 border-0 rounded-3 fw-semibold"
-                            style={{
-                              backgroundColor: action.color,
-                              color: 'white',
-                              transition: 'all 0.3s ease'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.transform = 'translateY(-2px)';
-                              e.currentTarget.style.boxShadow = `0 8px 20px ${action.color}40`;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.transform = 'translateY(0)';
-                              e.currentTarget.style.boxShadow = 'none';
-                            }}
-                          >
-                            <div className="d-flex align-items-center justify-content-center">
-                              {action.icon}
-                              <span className="ms-2">{action.label}</span>
-                            </div>
-                          </button>
+  
+                {/* Tables Row */}
+                <div className="row mb-4">
+                  {/* Recent Enquiries */}
+                  <div className="col-lg-6 mb-4">
+                    <div className="card" style={cardStyle}>
+                      <div
+                        className="card-header text-white py-3"
+                        style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
+                      >
+                        <h5 className="mb-0 d-flex align-items-center">
+                          <HelpCircle size={20} className="me-2" />
+                          Recent Enquiries
+                        </h5>
+                      </div>
+                      <div className="card-body p-0">
+                        <div className="table-responsive">
+                          <table className="table table-hover mb-0">
+                            <thead style={{ backgroundColor: '#f8f9fa' }}>
+                              <tr>
+                                <th className="border-0 py-3 px-4" style={{ color: '#6c757d', fontWeight: '600' }}>Name</th>
+                                <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Subject</th>
+                                <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Date</th>
+                                <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Status</th>
+                                <th className="border-0 py-3" style={{ color: '#6c757d', fontWeight: '600' }}>Priority</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td className="py-4 px-4 text-muted" colSpan={5} style={{ textAlign: 'center' }}>
+                                  No enquiries found
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
-                      ))}
+                      </div>
+                    </div>
+                  </div>
+  
+                  {/* Recent Registrations */}
+                  <div className="col-lg-6 mb-4">
+                    <div className="card" style={cardStyle}>
+                      <div
+                        className="card-header text-white py-3"
+                        style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
+                      >
+                        <h5 className="mb-0 d-flex align-items-center">
+                          <Users size={20} className="me-2" />
+                          Recent Registrations
+                        </h5>
+                      </div>
+                      <div className="card-body p-4 text-center text-muted">
+                        <Users size={48} className="mb-3" style={{ opacity: 0.3 }} />
+                        <p className="mb-0">No recent registrations</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                {/* Quick Actions */}
+                <div className="row">
+                  <div className="col-12">
+                    <div className="card" style={cardStyle}>
+                      <div
+                        className="card-header text-white py-3"
+                        style={{ background: 'linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%)' }}
+                      >
+                        <h5 className="mb-0 d-flex align-items-center">
+                          <Zap size={20} className="me-2" />
+                          Quick Actions
+                        </h5>
+                      </div>
+                      <div className="card-body p-4">
+                        <div className="row">
+                          {quickActions.map((action, index) => (
+                            <div key={index} className="col-md-6 col-lg-3 mb-3">
+                              <button
+                                className="btn w-100 py-3 border-0 rounded-3 fw-semibold"
+                                style={{
+                                  backgroundColor: action.color,
+                                  color: 'white',
+                                  transition: 'all 0.3s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(-2px)';
+                                  e.currentTarget.style.boxShadow = `0 8px 20px ${action.color}40`;
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.transform = 'translateY(0)';
+                                  e.currentTarget.style.boxShadow = 'none';
+                                }}
+                              >
+                                <div className="d-flex align-items-center justify-content-center">
+                                  {action.icon}
+                                  <span className="ms-2">{action.label}</span>
+                                </div>
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>x
+                </div>
+              </>
+            ) : activeSection === 'news' ? (
+              <News />
+            ) : (
+              <div className="row">
+                <div className="col-12">
+                  <div className="card" style={cardStyle}>
+                    <div className="card-body text-center py-5">
+                      <h3 className="mb-3">Section Coming Soon</h3>
+                      <p className="text-muted">This section is under development.</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
