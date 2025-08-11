@@ -18,6 +18,7 @@ function Adminlogin() {
       const res = await axios.post('http://localhost:3000/api/admin', user);
       if (res.data.msg === 'success') {
         window.alert('Welcome back');
+        navigate('/admindash');
        
       } else {
         window.alert('Username or password is wrong');
@@ -25,9 +26,10 @@ function Adminlogin() {
     } catch (error) {
       console.error('Login error:', error);
       window.alert('An error occurred. Please try again.');
-       navigate('/admindash');
+       
     } finally {
       setIsLoading(false);
+      
     }
   }
 

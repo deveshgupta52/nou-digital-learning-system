@@ -56,10 +56,10 @@ function HeroBanner() {
                       >
                         Home
                       </a>
-                      <ul className="dropdown-menu shadow-lg border-0">
-                        <li><a className="dropdown-item" href="#">Home</a></li>
+                      {/* <ul className="dropdown-menu shadow-lg border-0">
+                        <li><a className="dropdown-item" href="/">Home</a></li>
                         <li><a className="dropdown-item" href="#">About System</a></li>
-                      </ul>
+                      </ul> */}
                     </li>
 
                     <li className="nav-item">

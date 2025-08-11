@@ -67,7 +67,7 @@ const AdminDashboard = () => {
     { icon: <Users size={20} />, label: 'Students', active: false, href: '#students' },
     { icon: <HelpCircle size={20} />, label: 'Enquiries', active: false, href: '#enquiries' },
     { icon: <Bell size={20} />, label: 'News', active: false, href: '#news' },
-    { icon: <BookOpen size={20} />, label: 'Courses', active: false, href: '#courses' },
+    { icon: <BookOpen size={20} />, label: 'Courses', active: false , href: '#' },
     { icon: <Search size={20} />, label: 'Question Bank', active: false, href: '#question-bank' },
     { icon: <FileText size={20} />, label: 'Examinations', active: false, href: '#examinations' },
     { icon: <Settings size={20} />, label: 'Results', active: false, href: '#results' }

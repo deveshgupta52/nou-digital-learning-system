@@ -11,6 +11,7 @@ import Adminlogin from './components/AdminLogin'
 import Dashboard from './Admin/Admin'
 import Userlogin from './components/Userlogin'
 import HelpDesk from './Elements/Helpdesk'
+import Courses from './components/Courses/Courses'
 
 
 
@@ -25,12 +26,12 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/admin' element={<Adminlogin />} />
-                      <Route path='/admindash' element={<Dashboard />} />
-                      <Route path='/register' element={<Registration />} />
-                       <Route path='/login' element={<Userlogin />} />
-
-                        <Route path='/registration' element={<Registration/>}/>
-                         <Route path='/source' element={<HelpDesk/>}/>
+          <Route path='/admindash' element={<Dashboard />} />
+          <Route path='/register' element={<Registration />} />
+          <Route path='/login' element={<Userlogin />} />
+          <Route path='/registration' element={<Registration/>}/>
+          <Route path='/source' element={<HelpDesk/>}/>
+          <Route path='/courses' element={<Courses/>}/>
         </Routes>
 
         </BrowserRouter>
