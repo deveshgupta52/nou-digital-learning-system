@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import Student from '../models/Student.js';
 import Login from '../models/Login.js';
+import { sendWelcomeEmail } from '../services/emailService.js';
 
 // ✅ Get all students
 export const getAllStudents = async (req, res) => {
@@ -55,6 +56,8 @@ export const createStudent = async (req, res) => {
       status: 'active'
     });
     await login.save();
+    await sendWelcomeEmail(savedStudent);
+    
 
     res.status(201).json({
       message: 'Student and login created successfully',
@@ -64,4 +67,5 @@ export const createStudent = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log("hello")
 };

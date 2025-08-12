@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed": "node seed.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,11 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "fund": "^1.0.0",
+    "lucide-react": "^0.539.0",
     "mongoose": "^8.17.0",
-    "nodemon": "^3.1.10"
+    "nodemailer": "^7.0.5",
+    "nodemon": "^3.1.10",
+    "npm": "^11.5.2"
   }
 }

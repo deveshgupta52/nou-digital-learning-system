@@ -1,60 +1,96 @@
-import React from 'react'
+import React from "react";
 
-function Quicklink() {
+const linkCards = [
+  {
+    img: "https://nouegyan.in/assets/img/association/logo1.png",
+    title: "NOU",
+    subtitle: "Naland Open University",
+  },
+  {
+    img: "https://nouegyan.in/assets/img/association/logo3.png",
+    title: "UGC",
+    subtitle: "University Grants Commission",
+  },
+  {
+    img: "https://nouegyan.in/assets/img/association/logo2.png",
+    title: "NOU",
+    subtitle: "Naland Open University",
+  },
+];
+
+function QuickLinks() {
   return (
-    <div>
-<div className="container bg-light">
-    <div className="row">
-      <div className="col-md-5"><h6 className="small " style={{color:"grey"}}>LINKS</h6>
-      <div className="orange-line mb-2"></div>
-      <h3><span><b>QUICK</b></span><span style={{color:"#8B0000"}}> LINKS</span></h3>
-      </div>
-      </div>
-      <div className="row">
-      <div className="col-md-4">
-       
-       <div style={{height:"100px",width:"400px"}}>
-        <div style={{float:"left"}}>
-            <img style={{height:"100px",width:"100px"}} src="https://s.yimg.com/fz/api/res/1.2/llXiSmVVYMPNWsr_S14WHA--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI0MDtxPTgwO3c9MjIw/https://s.yimg.com/zb/imgv1/73d03323-a5e7-396a-8f3c-62cc46a3e4ca/t_500x300" alt="" />
+    <div className="row theme-bg-grey">
+      <div className="col-12">
+        {/* Section Heading */}
+        <div className="row">
+          <div className="col-1 ms-5 pe-0">
+            <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">LINKS</h2>
+          </div>
+          <div className="col-7"></div>
+          <div className="col-3"></div>
         </div>
-        <div style={{backgroundColor:"white", float:"left",height:"100px"}}>
-            <h3 style={{color:"#8B0000"}} className='px-5 mx-5'>UGC</h3>
-            <h6  className='px-3'> University Grants Commission</h6>
-        </div>
-       </div>
 
-      </div>
-      <div className="col-md-4">
-        <div style={{height:"100px",width:"400px"}}>
-        <div style={{float:"left"}}>
-            <img style={{height:"100px",width:"100px"}} src="https://media.9curry.com/uploads/organization/image/3306/bihar-dst-logo.png" alt="" />
+        {/* Title */}
+        <div className="row">
+          <div className="col-md-7 fs-3 fw-bold ms-5">
+            <p>
+              QUICK <span>LINKS</span>
+            </p>
+          </div>
+          <div className="col-md-4"></div>
         </div>
-        <div style={{backgroundColor:"white", float:"left",height:"100px"}}>
-            <h3 style={{color:"#8B0000"}} className='px-5 mx-5'>STD</h3>
-            <h6  className='px-3'>Science & Technology  Dept.</h6>
-        </div>
-       </div>
-      </div>
 
-      <div className="col-md-4">
-
-        <div style={{height:"100px",width:"400 px"}}>
-        <div style={{float:"left"}}>
-            <img style={{height:"100px",width:"100px"}} src="https://s.yimg.com/fz/api/res/1.2/CyvucSJZLqyHtROSRNdZsw--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTgwO3E9ODA7dz04MA--/https://s.yimg.com/zb/imgv1/2c8fb6db-edea-33e5-9268-2a34e02b2095/t_140x140" alt="" />
+        {/* Carousel */}
+        <div className="row mb-5">
+          <div
+            id="carouselExampleSlidesOnly"
+            className="carousel slide"
+            data-bs-ride="carousel"
+            data-bs-interval="3000"
+          >
+            <div className="carousel-inner mt-4">
+              {[0, 1, 2].map((index) => (
+                <div
+                  key={index}
+                  className={`carousel-item ${index === 0 ? "active" : ""}`}
+                >
+                  <div className="d-flex justify-content-center align-items-center gap-2">
+                    {linkCards.map((card, i) => (
+                      <div
+                        className="d-flex bg-light"
+                        style={{
+                          width: "400px",
+                          height: "125px",
+                          border: "1px dotted darkred",
+                        }}
+                        key={i}
+                      >
+                        <div className="col-4">
+                          <img
+                            src={card.img}
+                            style={{ height: "125px" }}
+                            alt={card.title}
+                          />
+                        </div>
+                        <div className="col-8">
+                          <h4 className="text-center fw-bold theme-text-darkred">
+                            {card.title}
+                          </h4>
+                          <h5 className="text-center">{card.subtitle}</h5>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div style={{backgroundColor:"white", float:"left",height:"100px"}}>
-            <h3 style={{color:"#8B0000"}} className='px-5 mx-5'>NOU</h3>
-            <h6  className='px-3'> Nalanda Open University</h6>
-        </div>
-       </div>
+        {/* End Carousel */}
       </div>
-        
-      </div>
-
     </div>
-  </div>
-    
-  )
+  );
 }
 
-export default Quicklink
+export default QuickLinks;

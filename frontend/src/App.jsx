@@ -10,6 +10,7 @@ import ScrollingNotice from './Elements/ScrollingNotice'
 import Adminlogin from './components/AdminLogin'
 import Dashboard from './Admin/Admin'
 import Userlogin from './components/Userlogin'
+import HelpDesk from './Elements/Helpdesk'
 
 
 
@@ -18,19 +19,18 @@ function App() {
 
   return (
     <>
-      <div className="container-fluid">
-
+      <div className="container-fluid ">
         <BrowserRouter>
         
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/admin' element={<Adminlogin />} />
-          <Route path='/admindash' element={<Dashboard />} />
-          <Route path='/register' element={<Registration />} />
-          <Route path='/login' element={<Userlogin />} />
+                      <Route path='/admindash' element={<Dashboard />} />
+                      <Route path='/register' element={<Registration />} />
+                       <Route path='/login' element={<Userlogin />} />
 
-
-
+                        <Route path='/registration' element={<Registration/>}/>
+                         <Route path='/source' element={<HelpDesk/>}/>
         </Routes>
 
         </BrowserRouter>

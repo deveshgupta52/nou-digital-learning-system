@@ -2,20 +2,19 @@ import React from 'react';
 
 function HelpDesk() {
   return (
-    <div className="row align-items-center mt-1">
+    <div id='support' className="row align-items-center mt-1">
       <div className="row">
         <div className="col-12">
           <div className="row">
             <div className="col-1 ms-5 pe-0">
               <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">HELPDESK</h2>
             </div>
-            <div className="col-1 orange-line mb-3 ms-3"></div>
             <div className="col-7"></div>
           </div>
 
           <div className="row">
             <div className="col-md-7 fs-3 fw-bold ms-5">
-              <p>ALWAYS <span>HERE TO SUPPORT YOU!</span></p>
+              <p>ALWAYS <span className="theme-text-orange">HERE TO SUPPORT YOU!</span></p>
             </div>
             <div className="col-md-4"></div>
           </div>
@@ -38,7 +37,7 @@ function HelpDesk() {
         <div
           className="p-3 mb-3"
           style={{
-            backgroundColor: '#f26522',
+            backgroundColor: '#f26524',
             color: 'white',
             borderRadius: '5px',
           }}
@@ -48,13 +47,13 @@ function HelpDesk() {
 
         {/* Phone Card */}
         <div className="d-flex align-items-center border p-3 mb-3 rounded">
-          <i className="bi bi-telephone-fill fs-4 text-warning me-3"></i>
+          <i className="fa fa-phone fs-4 fa-shake text-warning me-3"></i>
           <span>+91 7080102007</span>
         </div>
 
         {/* Email Card */}
         <div className="d-flex align-items-center border p-3 rounded">
-          <i className="bi bi-envelope-fill fs-4 text-warning me-3"></i>
+          <i className="fa fa-envelope fs-4 fa-bounce text-warning me-3"></i>
           <span>nouegyanhelp@gmail.com</span>
         </div>
       </div>

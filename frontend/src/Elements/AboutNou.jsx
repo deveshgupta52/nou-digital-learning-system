@@ -1,43 +1,42 @@
 import React from 'react';
 
-
-const AboutNOU = () => {
+const AboutSystem = () => {
   return (
 <>
-<hr />
+<hr className="my-5" />
 
-   <div className="container">
+   <div className="container fade-in-up">
 
     <div className="row">
-      <div className="nou-heading mb-4">
-      <p className="desc-label">Description</p>
+      <div className="section-heading mb-5">
+      <p className="desc-label theme-text-grey">DESCRIPTION</p>
       <div className="orange-line mb-2"></div>
       <h2>
         <span className="text-dark fw-bold">ABOUT </span>
-        <span className="text-danger fw-bold">NOU e-GYAN PORTAL</span>
+        <span className="theme-text-orange fw-bold">DIGITAL ASSESSMENT SYSTEM</span>
       </h2>
     </div>
     </div>
 
 <div className="row">
-  <div className="col-md-7 ">
-    <p className="mt-3 "style={{textAlign:"justify"}}>
-            <strong>Nalanda Open University</strong> welcomes all our students, faculties & study centres to the very
-            new & innovative online study portal <strong>NOU e–Gyan</strong>. The portal is a unique initiative by
-            Hon’ble Vice-Chancellor <strong>Prof. (Dr.) K C Sinha</strong>, which aims at providing online study
-            material to the students of NOU.
+  <div className="col-md-7">
+    <div className="pe-4">
+    <p className="mt-3 fs-5 lh-lg" style={{textAlign:"justify"}}>
+            <strong>Digital Assessment System</strong> is a comprehensive platform designed to revolutionize 
+            the way educational assessments are conducted. Our system provides <strong>advanced digital tools</strong> 
+            for creating, managing, and evaluating assessments with real-time analytics and reporting capabilities.
           </p>
-          <p style={{textAlign:"justify"}}>
-            The portal is accessible from any hook and corner of the world if the system allows the permission to its
-            users. It is also fully secured and accessible 24 x 7 to its authorised users. It will resolve the academic
-            issues such as E-content Distribution, Delivery, Tracking, Assessment, Progress Monitoring & Controlling of
-            all stakeholders of the system i.e. students, teachers, study centre administrators as well as Nalanda Open
-            University Admins when they are at a distance.
+          <p className="fs-5 lh-lg" style={{textAlign:"justify"}}>
+            The platform is accessible from anywhere in the world with internet connectivity and is fully secured 
+            with 24/7 availability. It addresses modern assessment challenges including automated grading, 
+            performance tracking, analytics, progress monitoring, and comprehensive reporting for students, 
+            educators, and administrators in educational institutions.
           </p>
+    </div>
 
   </div>
   <div className="col-md-5">
-  <div style={{ position: 'relative', display: 'flex', height: '250px' }}>
+  <div style={{ position: 'relative', display: 'flex', height: '300px' }} className="rounded-3 overflow-hidden shadow-lg">
     {/* Left Red Div */}
     <div style={{ width: '50%' }}></div>
 
@@ -45,7 +44,7 @@ const AboutNOU = () => {
     <div
       style={{
         width: '100%',
-        backgroundImage: "url('https://www.nou.ac.in/uploads/slide2.jpg')",
+        backgroundImage: "url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -53,8 +52,8 @@ const AboutNOU = () => {
 
     {/* Overlaying Iframe (centered between both divs) */}
     <iframe
-      title="NOU e-Gyan"
-      src="https://www.youtube.com/embed/jVl8uLz8f9w"
+      title="Digital Assessment System"
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       style={{
@@ -65,8 +64,8 @@ const AboutNOU = () => {
         width: '80%',
         height: '70%',
         border: 'none',
-        borderRadius: '8px',
-        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+        borderRadius: '12px',
+        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.4)',
         zIndex: 2,
       }}
     ></iframe>
@@ -76,7 +75,8 @@ const AboutNOU = () => {
 </div>
    </div>
        
-  <hr />
+  <hr className="my-5" />
 </>
   )}
-export default AboutNOU
+
+export default AboutSystem

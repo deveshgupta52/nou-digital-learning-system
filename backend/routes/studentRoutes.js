@@ -5,6 +5,8 @@ import {
   createStudent
 } from "../controllers/studentController.js";
 
+
+
 const router = express.Router();
 
 // ✅ Get all students (Admin use)
