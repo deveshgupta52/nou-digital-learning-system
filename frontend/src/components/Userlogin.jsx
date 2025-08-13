@@ -19,7 +19,7 @@ function Userlogin() {
 
       if (data.message === "Login successful") {
         window.alert("Welcome back!");
-        navigate('/');
+        navigate('/loginStudent');
       } else {
         window.alert("Username or password is wrong");
       }
