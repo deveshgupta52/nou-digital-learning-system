@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function HelpDesk() {
   return (
@@ -55,6 +56,12 @@ function HelpDesk() {
         <div className="d-flex align-items-center border p-3 rounded">
           <i className="fa fa-envelope fs-4 fa-bounce text-warning me-3"></i>
           <span>nouegyanhelp@gmail.com</span>
+        </div>
+
+        <div>
+          <Link to={'/EnquiryForm'}>
+          <button className="btn btn-warning mt-3">Send Enquiry</button>
+          </Link>
         </div>
       </div>
     </div>

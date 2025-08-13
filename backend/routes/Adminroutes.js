@@ -14,7 +14,6 @@ adminRoute.post('',async(req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
     const ad= await adminModel.findOne({email:email})
-    
     if(ad && ad.password==password){
         return res.json({"msg":"success"})
     }else{

@@ -60,7 +60,7 @@ const Courses = () => {
             OUR <span className="theme-text-orange">COURSES</span>
           </p>
         </div>
-        <div className="col-md-4"> <Link to={"/courses"} style={{textDecoration:"none"}}>
+        <div className="col-md-4"> <Link to={"/viewcourses"} style={{textDecoration:"none"}}>
 
           <button
             type="button"

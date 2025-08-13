@@ -6,18 +6,7 @@ const enquirySchema = mongoose.Schema({
         required : true
     },
 
-    gender : {
-        type : String,
-        required : true
-        
-    },
-
-    address : {
-        type : String,
-        required : true
-    },
-
-    contactNo : {
+    phone : {
         type : Number,
         required : true
     },
@@ -27,14 +16,27 @@ const enquirySchema = mongoose.Schema({
         required : true
     },
 
-    enquiryText : {
-        type : String
+    subject : {
+        type: String,
+        required: [true, 'Phone number is required']
     },
 
-    enquiryDate : {
-        type : Date,
-        default : Date.now
+    message : {
+        type: String,
+        required : [true, 'Subject is required'],
+        minlength : [10, 'Message must be at leat 10 character long']
+    },
+
+    status : {
+        type : String,
+        default: 'New',
+        enum : {
+            values: ['New', 'In Progress', 'Resolved'],
+            message : 'Status must be New, In Progress, Or Resolved'
+        }
     }
+
+
 });
 
 const enquiryModel = mongoose.model('enquiry', enquirySchema);

@@ -69,9 +69,11 @@ function HeroBanner() {
       });
     }}>Course</a>
                     </li>
+                    <Link to={"/exam"} style={{textDecoration:"none"}}>
                     <li className="nav-item">
                       <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Exam</a>
                     </li>
+                    </Link>
                     <li className="nav-item">
                       <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Result</a>
                     </li>

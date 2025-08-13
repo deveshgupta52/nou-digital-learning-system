@@ -8,20 +8,25 @@ import adminRoute from "./routes/Adminroutes.js";
 import courseRoute from "./routes/courseRoute.js";
 import resultRoute from "./routes/resultRoute.js";
 import enquiryRoute from "./routes/enquiryRoute.js";
+import newsRoutes from './routes/newsRoute.js';
+import questionRoute from './routes/questionRoute.js'
 
 dotenv.config();
 const app = express();
+
+
+
 app.use(express.json());
-
 app.use(cors());
-
-app.use("/courses", courseRoute);
 app.use("/enquiry", enquiryRoute);
 app.use("/result", resultRoute);
+app.use('/courses', courseRoute);
+app.use('/api/students',authRoute)
+app.use('/students',student_route)
+app.use('/api/admin',adminRoute)
+app.use('/api/news',newsRoutes)
+app.use('/questions', questionRoute);
 
-app.use("/api/students", authRoute);
-app.use("/api/students", student_route);
-app.use("/api/admin", adminRoute);
 
 connectDB();
 
