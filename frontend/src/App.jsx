@@ -16,6 +16,7 @@ import QuestionBank from "./components/Examination/QuestionBank";
 import Enquiry from "./components/Enquiry/Enquiry";
 import EnquiryForm from "./components/Enquiry/EnquiryForm";
 import AdStudent from './Admin/AdStudent';
+import StudentDashboard from "./components/Student/StudentDasbard";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/enquiry" element={<Enquiry />} />
             <Route path="/EnquiryForm" element={<EnquiryForm/>}/>
             <Route path="/admindash/students" element={<AdStudent/>}/>
+            <Route path="/loginStudent" element={<StudentDashboard/>}/>
           </Routes>
         </BrowserRouter>
       </div>

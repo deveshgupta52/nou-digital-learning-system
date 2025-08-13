@@ -107,7 +107,7 @@ const res=await axios.post("http://localhost:3000/api/students/register",formDat
   };
 
   return (
-    <div style={styles.container} className="container-fluid d-flex justify-content-center align-items-center px-0">
+    <div style={styles.container} className="row d-flex justify-content-center align-items-center px-0">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8 col-md-10">
