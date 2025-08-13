@@ -4,7 +4,7 @@ import Timetables from './Timetables';
 import Results from './Results';
 import Courses from './Courses';
 import Exams from './Exams';
-import QuestionBank from './QuestionBank';
+import QuestionBank from './Enquiry';
 
 const StudentDashboard = () => {
   const [activeSection, setActiveSection] = useState('profile');
@@ -403,7 +403,7 @@ const StudentDashboard = () => {
                 style={{ textDecoration: 'none' }}
               >
                 <i className="bi bi-question-circle me-2"></i>
-                Question Bank
+                Enquiry
               </a>
             </li>
           </ul>

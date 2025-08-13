@@ -35,7 +35,7 @@ function Adminlogin() {
 
   const containerStyle = {
     minHeight: '100vh',
-   width:"100%",
+  //  width:"100%",
     backgroundImage:
       "url('https://tse1.mm.bing.net/th/id/OIP.LNlfNpQra-oV5Iw8LZh5TgHaEo?pid=Api&P=0&h=180')",
     backgroundSize: 'cover',
@@ -51,11 +51,12 @@ function Adminlogin() {
     maxWidth: '500px',
     borderRadius: '20px',
     padding: '40px',
-    background: 'rgba(255, 255, 255, 0.1)',
+    // background: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor:'white',
     backdropFilter: 'blur(15px)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '4px solid #ffc107',
     boxShadow: '0 25px 45px rgba(0, 0, 0, 0.2)',
-    color: '#fff',
+    color: '#ffc107',
   };
 
   const inputGroup = {
@@ -67,9 +68,10 @@ function Adminlogin() {
     width: '100%',
     padding: '12px 44px',
     borderRadius: '12px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    border:'2px solid #ffc107',
+    // border: '1px solid rgba(255, 255, 255, 0.3)',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: '#fff',
+    color: 'black',
     outline: 'none',
     fontSize: '16px',
   };
@@ -79,14 +81,14 @@ function Adminlogin() {
     top: '65%',
     left: '14px',
     transform: 'translateY(-50%)',
-    color: '#ffffffb3',
+    color: 'black',
   };
   const iconStylee = {
 position: 'absolute',
     // top: '100%',
     right: '10px',
     transform: 'translate(-50%)',
-    color: '#ffffffb3',
+    color: '#black',
   };
 
   const toggleButtonStyle = {
@@ -96,7 +98,7 @@ position: 'absolute',
     transform: 'translateY(-50%)',
     background: 'none',
     border: 'none',
-    color: '#ffffffb3',
+    color: 'black',
     cursor: 'pointer',
   };
 
@@ -115,15 +117,15 @@ position: 'absolute',
   const footerStyle = {
     marginTop: '30px',
     fontSize: '14px',
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: 'rgba(101, 83, 83, 0.8)',
     textAlign: 'center',
-    borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+    borderTop: '1px solid #ffc107',
     paddingTop: '20px',
   };
 
   return (
     
-    <div className='container-fluid ' style={containerStyle}>
+    <div className='row' style={containerStyle}>
       <div style={cardStyle}>
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <Shield size={50} />

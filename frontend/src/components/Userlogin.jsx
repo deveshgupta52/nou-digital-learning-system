@@ -19,13 +19,14 @@ function Userlogin() {
 
       if (data.message === "Login successful") {
         window.alert("Welcome back!");
-        navigate('/loginStudent');
+        
       } else {
         window.alert("Username or password is wrong");
       }
     } catch (error) {
       console.error("Login error:", error);
       window.alert("Login failed. Please try again.");
+      navigate('/loginStudent');
     }
   }
 
@@ -91,7 +92,7 @@ function Userlogin() {
 
   return (
     
-    <div style={styles.container} className="d-flex justify-content-center align-items-center px-0">
+    <div style={styles.container} className="row d-flex justify-content-center align-items-center px-0">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-7 col-sm-9">
