@@ -247,7 +247,7 @@ const QuestionBank = () => {
           <div style={{ marginTop: 15, display: "flex", gap: 10 }}>
             <button
               style={{
-                backgroundColor: "#0d47a1",
+                backgroundColor: "#f79707",
                 color: "white",
                 padding: "8px 16px",
                 border: "none",
@@ -289,7 +289,7 @@ const QuestionBank = () => {
         {/* Questions Table */}
         <div
           style={{
-            backgroundColor: "#1565c0",
+            backgroundColor: "#f79707",
             color: "white",
             padding: "10px 15px",
             borderRadius: "4px 4px 0 0",
@@ -304,7 +304,7 @@ const QuestionBank = () => {
             boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
           }}
         >
-          <thead style={{ backgroundColor: "#1565c0", color: "white" }}>
+          <thead style={{ backgroundColor: "#f79707", color: "white" }}>
             <tr>
               <th style={{ padding: 8, textAlign: "left" }}>Question</th>
               <th style={{ padding: 8, textAlign: "left" }}>Subject</th>

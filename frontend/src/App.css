@@ -54,6 +54,8 @@ span{
   background-color: orange;
 }
 
+
+
 .video-card {
       border: 2px solid #d0002c;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -302,6 +304,11 @@ span{
   display: flex;
   align-items: start;
   gap: 5px;
+}
+
+.devesh-enq::placeholder{
+  color: white;
+  opacity: 0.7;
 }
 
 .footer-subscribe p {
