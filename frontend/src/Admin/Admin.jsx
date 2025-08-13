@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const stCount = async () => {
-      const res = await axios.get("http://localhost:3000/api/students/count");
+      const res = await axios.get("http://localhost:3000/students/count");
       setStCount(res.data.count);
     };
 
