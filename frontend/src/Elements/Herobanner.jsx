@@ -6,8 +6,8 @@ function HeroBanner() {
     <div className="row position-relative">
       <div className="col-12 p-0">
         <img
-          style={{ height: "430px", width: "100%" }}
-          src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=430&fit=crop"
+          style={{ height: "595px", width: "100%" }}
+          src="\public\images\digital.jpg"
           alt="Digital Assessment Banner"
         />
       </div>
@@ -36,7 +36,7 @@ function HeroBanner() {
                   aria-controls="navbarSupportedContent"
                   aria-expanded="false"
                   aria-label="Toggle navigation"
-                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
+                  // style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
                 >
                   <span className="navbar-toggler-icon" style={{ filter: 'invert(1)' }}></span>
                 </button>
@@ -46,12 +46,12 @@ function HeroBanner() {
                   id="navbarSupportedContent"
                 >
                   <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item dropdown">
+                    <li className="nav-item ">
                       <a
-                        className="nav-link dropdown-toggle fs-5 text-white fw-semibold px-3"
-                        href="#"
+                        className="nav-link  fs-5 text-white fw-semibold px-3"
+                        href="/"
                         role="button"
-                        data-bs-toggle="dropdown"
+                        // data-bs-toggle="dropdown"
                         aria-expanded="false"
                       >
                         Home
@@ -111,7 +111,7 @@ function HeroBanner() {
 
                    <Link to={"/admin"} style={{textDecoration:"none"}}>
                     <li className="nav-item">
-                      <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Admin Login </a>
+                      <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Admin</a>
                     </li>
                   </Link>
 

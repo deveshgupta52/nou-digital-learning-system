@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Edit, Trash2 } from 'lucide-react';
+import * as XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import autoTable from'jspdf-autotable';
+
 
 const Enquiries = () => {
   // State variables for enquiries data, loading status, and error handling
@@ -163,6 +167,40 @@ const Enquiries = () => {
     fetchEnquiries();
   }, []);
 
+
+  // Export to Excel
+  const exportToExcel = () => {
+  const rows = enquiries.map(enq => ({
+    Name: enq.name || '',
+    Email: enq.email || '',
+    Subject: enq.subject || '',
+    Message: enq.message || '',
+    Status: enq.status || 'New',
+    Date: enq.createdAt ? new Date(enq.createdAt).toLocaleDateString() : 'N/A',
+  }));
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Enquiries');
+  XLSX.writeFile(wb, 'enquiries.xlsx');
+};
+
+// Export to PDF
+  const exportToPDF = () => {
+  const doc = new jsPDF();
+  doc.text('Enquiries Report', 14, 12);
+  const head = [['Name', 'Email', 'Subject', 'Message', 'Status', 'Date']];
+  const body = enquiries.map(enq => [
+    enq.name || '',
+    enq.email || '',
+    enq.subject || '',
+    enq.message || '',
+    enq.status || 'New',
+    enq.createdAt ? new Date(enq.createdAt).toLocaleDateString() : 'N/A',
+  ]);
+  autoTable(doc, { head, body, startY: 18 });
+  doc.save('enquiries.pdf');
+};
+
   // Function to fetch enquiries from backend API
   const fetchEnquiries = async () => {
     try {
@@ -292,6 +330,11 @@ const Enquiries = () => {
                 <div>
                   <h2 style={{ margin: 0, fontWeight: '700' }}>Enquiries</h2>
                   <p style={{ margin: '5px 0 0 0', opacity: 0.9 }}>Manage all enquiries from users</p>
+                </div>
+
+                <div>
+                  <button className="btn btn-sm btn-success me-2" onClick={exportToExcel}><i class="fa-solid fa-file-excel"></i></button>
+                  <button className="btn btn-sm btn-success  ms-2" onClick={exportToPDF}><i class="fa-solid fa-file-pdf"></i></button>
                 </div>
               </div>
             </div>

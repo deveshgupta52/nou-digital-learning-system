@@ -25,9 +25,9 @@ function QuickLinks() {
         {/* Section Heading */}
         <div className="row">
           <div className="col-1 ms-5 pe-0">
-            <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">LINKS</h2>
+            <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-3">LINKS</h2>
           </div>
-          <div className="col-1 orange-line mb-3 ms-3"></div>
+          <div className="col-1  mb-3 ms-3"></div>
           <div className="col-7"></div>
           <div className="col-3"></div>
         </div>
@@ -56,25 +56,25 @@ function QuickLinks() {
                   key={index}
                   className={`carousel-item ${index === 0 ? "active" : ""}`}
                 >
-                  <div className="d-flex justify-content-center align-items-center gap-2">
+                  <div className="d-flex justify-content-center align-items-center gap-3 ">
                     {linkCards.map((card, i) => (
                       <div
-                        className="d-flex bg-light"
+                        className="d-flex bg-light m-2 "
                         style={{
                           width: "400px",
-                          height: "125px",
+                          height: "130px",
                           border: "1px dotted darkred",
                         }}
                         key={i}
                       >
-                        <div className="col-4">
+                        <div className="col-4 mt-2 ms-2">
                           <img
                             src={card.img}
-                            style={{ height: "125px" }}
+                            style={{ height: "110px" }}
                             alt={card.title}
                           />
                         </div>
-                        <div className="col-8">
+                        <div className="col-8 py-3">
                           <h4 className="text-center fw-bold theme-text-darkred">
                             {card.title}
                           </h4>

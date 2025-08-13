@@ -3,18 +3,40 @@ import React from "react";
 const StudentServices = () => {
   // 12 cards (3 rows × 4 columns)
   const cardData = [
-    { img: "https://nouegyan.in/assets/img/services/registration.jpg", title: "Registration" },
-    { img: "https://thumbs.dreamstime.com/b/flat-design-clipboard-admission-form-laptop-screen-modern-userfriendly-online-concept-illustration-elearning-318986763.jpg", title: "Admission" },
-    { img: "https://img.freepik.com/free-vector/exams-concept-illustration_114360-1815.jpg", title: "Examinations" },
-    { img: "https://img.freepik.com/premium-vector/exam-results-document-illustration_212005-46.jpg", title: "Results" },
-    { img: "https://static.vecteezy.com/system/resources/previews/006/846/548/non_2x/library-flat-color-illustration-vector.jpg", title: "Library" },
-    { img: "https://thumbs.dreamstime.com/b/colorful-online-education-e-learning-educational-apps-flat-design-illustration-colorful-flat-design-illustration-online-375952335.jpg", title: "Courses" },
-    { img: "https://static.vecteezy.com/system/resources/previews/046/378/738/non_2x/scholarship-certificate-badge-and-money-cartoon-concept-completion-certificate-certificates-of-achievement-education-awards-scholarships-bachelor-degrees-diplomas-education-finance-concept-vector.jpg", title: "Scholarship" },
-    { img: "https://c8.alamy.com/comp/2RBHT0K/technical-support-system-vector-illustration-with-software-development-customer-service-and-technology-help-in-flat-cartoon-hand-drawn-templates-2RBHT0K.jpg", title: "Support" },
-    { img: "https://img.freepik.com/premium-vector/tourist-with-backpack-suitcase-going-hostel-entry-hotel-building-night-accommodation-colored-flat-vector-illustration-young-woman-with-luggage-walking-house-entrance_198278-12413.jpg", title: "Hostel" },
-    { img: "https://static.vecteezy.com/system/resources/previews/000/663/153/original/young-people-training-sports-cartoons-vector.jpg", title: "Sports" },
-    { img: "https://static.vecteezy.com/system/resources/previews/012/710/081/original/event-planner-template-hand-drawn-cartoon-flat-illustration-with-planning-schedule-time-management-business-agenda-and-calendar-concept-vector.jpg", title: "Events" },
-    { img: "https://thumbs.dreamstime.com/b/mentoring-program-established-alumni-offering-career-guidance-financial-support-to-students-pursuing-specific-fields-317485625.jpg", title: "Alumni" }
+    {
+      img: "https://nouegyan.in/assets/img/services/registration.jpg",
+      title: "Registration",
+    },
+    {
+      img: "https://thumbs.dreamstime.com/b/flat-design-clipboard-admission-form-laptop-screen-modern-userfriendly-online-concept-illustration-elearning-318986763.jpg",
+      title: "Admission",
+    },
+    {
+      img: "https://img.freepik.com/free-vector/exams-concept-illustration_114360-1815.jpg",
+      title: "Examinations",
+    },
+    {
+      img: "https://img.freepik.com/premium-vector/exam-results-document-illustration_212005-46.jpg",
+      title: "Results",
+    },
+
+    {
+      img: "https://thumbs.dreamstime.com/b/colorful-online-education-e-learning-educational-apps-flat-design-illustration-colorful-flat-design-illustration-online-375952335.jpg",
+      title: "Courses",
+    },
+    {
+      img: "https://static.vecteezy.com/system/resources/previews/046/378/738/non_2x/scholarship-certificate-badge-and-money-cartoon-concept-completion-certificate-certificates-of-achievement-education-awards-scholarships-bachelor-degrees-diplomas-education-finance-concept-vector.jpg",
+      title: "Scholarship",
+    },
+    {
+      img: "https://c8.alamy.com/comp/2RBHT0K/technical-support-system-vector-illustration-with-software-development-customer-service-and-technology-help-in-flat-cartoon-hand-drawn-templates-2RBHT0K.jpg",
+      title: "Support",
+    },
+
+    {
+      img: "https://static.vecteezy.com/system/resources/previews/012/710/081/original/event-planner-template-hand-drawn-cartoon-flat-illustration-with-planning-schedule-time-management-business-agenda-and-calendar-concept-vector.jpg",
+      title: "Events",
+    },
   ];
 
   // Card UI
@@ -25,7 +47,7 @@ const StudentServices = () => {
         height: "310px",
         width: "220px",
         border: "1px solid grey",
-        padding: 0
+        padding: "0",
       }}
     >
       <img
@@ -39,7 +61,7 @@ const StudentServices = () => {
           height: "40px",
           fontWeight: "bold",
           fontSize: "16px",
-          backgroundColor: "#ff7f50" // fallback if no theme-bg-color
+          backgroundColor: "#ff7f50", // fallback if no theme-bg-color
         }}
       >
         {item.title}
@@ -79,9 +101,12 @@ const StudentServices = () => {
         {rows.map((rowCards, rowIndex) => (
           <div
             key={rowIndex}
-            className="row d-flex justify-content-evenly align-items-center mt-4"
+            className="row d-flex justify-content-center align-items-center mt-4 "
+            style={{ gap: "70px" }}
           >
-            {rowCards.map((item, index) => renderCard(item, `${rowIndex}-${index}`))}
+            {rowCards.map((item, index) =>
+              renderCard(item, `${rowIndex}-${index}`)
+            )}
           </div>
         ))}
       </div>

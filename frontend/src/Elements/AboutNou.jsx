@@ -44,19 +44,18 @@ const AboutSystem = () => {
     <div
       style={{
         width: '100%',
-        backgroundImage: "url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg')",
+        backgroundImage: "url('https://nouegyan.in/assets/img/slider1.jpeg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+  
       }}
     ></div>
 
     {/* Overlaying Iframe (centered between both divs) */}
-    <iframe
-      title="Digital Assessment System"
-      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      style={{
+    <iframe src="https://www.youtube.com/embed/jVl8uLz8f9w?si=6Wd9zPwqlumcPJZe" title="Digital Assessment System"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    style={{
         position: 'absolute',
         top: '50%',
         left: '40%',
@@ -67,8 +66,8 @@ const AboutSystem = () => {
         borderRadius: '12px',
         boxShadow: '0 8px 25px rgba(0, 0, 0, 0.4)',
         zIndex: 2,
-      }}
-    ></iframe>
+      }}></iframe>
+
   </div>
 </div>
 

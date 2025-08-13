@@ -121,13 +121,14 @@ function Footer() {
         >
           <input
             type="text"
-            className="form-control rounded-pill"
+            className="form-control rounded-pill devesh-enq"
             placeholder="Email"
             style={{
               backgroundColor: 'rgb(65, 64, 64)',
-              width: '500px',
+              width: '750px',
               height: '50px',
               border: 'none',
+              color: 'white',
             }}
           />
           <button
@@ -138,7 +139,7 @@ function Footer() {
               borderTopRightRadius: '50px',
               borderBottomRightRadius: '50px',
               zIndex: 10,
-              height: '50px',
+              height: '51px',
               width: '50px',
               left: '80%',
             }}

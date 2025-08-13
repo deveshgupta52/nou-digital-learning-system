@@ -35,9 +35,7 @@ const enquirySchema = mongoose.Schema({
             message : 'Status must be New, In Progress, Or Resolved'
         }
     }
-
-
-});
+}, {timestamps : true});
 
 const enquiryModel = mongoose.model('enquiry', enquirySchema);
 export default enquiryModel;
