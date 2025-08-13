@@ -185,8 +185,8 @@ const AdminDashboard = () => {
   return (
     <div className="row " style={{ fontFamily: "Inter, sans-serif" }}>
       {/* Sidebar */}
-      <div className="col-md-3 col-lg-2" style={sidebarStyle}>
-        <div className="p-4">
+      <div className="col-md-3                                                                                      " style={sidebarStyle}>
+        <div className="p-2">
           {/* Logo Section */}
           <div className="text-center mb-4">
             <div
@@ -243,7 +243,7 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <div
-        className="col-md-9 col-lg-10 "
+        className="col-md-10 ms-auto "
         style={{ backgroundColor: "#f8f9fa", marginLeft: "250px" }}
       >
         {/* Header */}
