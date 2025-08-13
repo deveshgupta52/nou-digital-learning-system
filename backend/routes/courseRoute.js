@@ -13,8 +13,17 @@ courseRoute.get('', async (req, res) => {
     });
 });
 
-// To Find particular course
+// count the number of courses
 
+courseRoute.get('/count',async (req,res) => {
+    const courseCount = await courseModel.countDocuments();
+    res.json({
+        "msg" : "success",
+        "count" : courseCount
+    });
+});
+
+// To Find particular course
 courseRoute.get('/:code', async (req, res) => {
     const code = req.params.code;
     const course = await courseModel.find({
@@ -29,11 +38,8 @@ courseRoute.get('/:code', async (req, res) => {
 
 // To ADD the new Course
 courseRoute.post('', async (req,res) => {
-    const {code, name} = req.body;
-    const course = await courseModel.create({
-        courseCode : code,
-        courseName : name
-    });
+    const courses = req.body.courses;
+    const course = await courseModel.insertMany(courses);
 
     res.json({
         "msg" : "success",
@@ -51,7 +57,8 @@ courseRoute.put('/:code', async (req,res) => {
 
     {
         courseCode : code,
-        courseName : req.body.name
+        courseName : req.body.name,
+        Duration : req.body.Duration
     }, 
 
     {

@@ -38,7 +38,7 @@ function PortalUsers() {
               configure assessment settings, and oversee system performance
             </p>
             <div className="d-flex justify-content-center align-items-center mt-3">
-              <a href="#" className="btn btn-warning rounded-pill px-4">
+              <a href="/admin" className="btn btn-warning rounded-pill px-4">
                 System Admin
               </a>
             </div>
@@ -57,7 +57,7 @@ function PortalUsers() {
               track performance, and generate detailed analytics reports
             </p>
             <div className="d-flex justify-content-center align-items-center mt-3">
-              <a href="#" className="btn btn-warning rounded-pill px-4">
+              <a href="/register" className="btn btn-warning rounded-pill px-4">
                 Teachers/Educators
               </a>
             </div>
@@ -76,7 +76,7 @@ function PortalUsers() {
               and access personalized learning recommendations
             </p>
             <div className="d-flex justify-content-center align-items-center mt-3">
-              <a href="#" className="btn btn-warning rounded-pill px-4">
+              <a href="/login" className="btn btn-warning rounded-pill px-4">
                 Students
               </a>
             </div>

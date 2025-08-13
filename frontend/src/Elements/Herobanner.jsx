@@ -56,10 +56,10 @@ function HeroBanner() {
                       >
                         Home
                       </a>
-                      <ul className="dropdown-menu shadow-lg border-0">
-                        <li><a className="dropdown-item" href="#">Home</a></li>
+                      {/* <ul className="dropdown-menu shadow-lg border-0">
+                        <li><a className="dropdown-item" href="/">Home</a></li>
                         <li><a className="dropdown-item" href="#">About System</a></li>
-                      </ul>
+                      </ul> */}
                     </li>
 
                     <li className="nav-item">
@@ -69,9 +69,11 @@ function HeroBanner() {
       });
     }}>Course</a>
                     </li>
+                    <Link to={"/exam"} style={{textDecoration:"none"}}>
                     <li className="nav-item">
                       <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Exam</a>
                     </li>
+                    </Link>
                     <li className="nav-item">
                       <a className="nav-link fs-5 text-white fw-semibold px-3" href="#">Result</a>
                     </li>
