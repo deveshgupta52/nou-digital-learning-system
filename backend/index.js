@@ -10,6 +10,7 @@ import resultRoute from "./routes/resultRoute.js";
 import enquiryRoute from "./routes/enquiryRoute.js";
 import newsRoutes from './routes/newsRoute.js';
 import questionRoute from './routes/questionRoute.js'
+import chatbotRoutes from "./routes/nouChatbot.js"; 
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,7 @@ app.use('/students',student_route)
 app.use('/api/admin',adminRoute)
 app.use('/api/news',newsRoutes)
 app.use('/questions', questionRoute);
+app.use("/chat", chatbotRoutes);
 
 
 connectDB();
