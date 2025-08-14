@@ -15,7 +15,7 @@ export const loginUser = async (req, res) => {
     // 🔹 Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credential" });
     }
 
     // 🔹 Return success + role

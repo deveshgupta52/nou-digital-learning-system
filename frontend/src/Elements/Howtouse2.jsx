@@ -2,7 +2,7 @@ import React from 'react';
 
 const HowToUse = () => {
   const sectionStyle = {
-    backgroundImage: 'url("https://img.freepik.com/free-vector/top-view-workplace-studying-vector-cartoon-illustration-old-wooden-desk-papers-sticky-notes-rulers-pencils-textbooks-notebooks-with-blank-pages-education-workspace-home_107791-22147.jpg")',
+    backgroundImage: 'url("https://plus.unsplash.com/premium_photo-1676422355165-d809008b8342?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     padding: '50px 20px',

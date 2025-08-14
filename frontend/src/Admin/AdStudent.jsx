@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Users, Search, Save, X, Trash2, ToggleLeft, ToggleRight, Pencil } from 'lucide-react';
+import { Plus, Users, Search, X, Trash2, ToggleLeft, ToggleRight, Pencil, Info, Save } from 'lucide-react';
+import AddStudent from './AddStudent';
 
 const StudentManagement = ({ refreshDashboard }) => {
   const [students, setStudents] = useState([]);
@@ -8,22 +9,8 @@ const StudentManagement = ({ refreshDashboard }) => {
   const [error, setError] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  
-  // Form state for adding new student
-  const [newStudent, setNewStudent] = useState({
-    rollno: '',
-    name: '',
-    fname: '',
-    mname: '',
-    gender: '',
-    address: '',
-    program: '',
-    branch: '',
-    year: '',
-    contactno: '',
-    emailaddress: '',
-    password: ''
-  });
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
   
   // Form state for editing student
   const [editStudent, setEditStudent] = useState({
@@ -81,91 +68,13 @@ const StudentManagement = ({ refreshDashboard }) => {
     
     return null; // No validation errors
   };
-
-  // Add new student
-  const handleAddStudent = async (e) => {
-    e.preventDefault();
-    
-    // Validate form data
-    const validationError = validateStudentData(newStudent);
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-    
-    try {
-      setLoading(true);
-      const response = await axios.post('http://localhost:3000/students/', newStudent);
-      setStudents([...students, response.data.student]);
-      setNewStudent({
-        rollno: '',
-        name: '',
-        fname: '',
-        mname: '',
-        gender: '',
-        address: '',
-        program: '',
-        branch: '',
-        year: '',
-        contactno: '',
-        emailaddress: '',
-        password: ''
-      });
-      setShowAddForm(false);
-      setError('');
-      alert('Student added successfully!');
-      
-      // Refresh the dashboard to show updated student count
-      if (refreshDashboard) {
-        refreshDashboard();
-      }
-    } catch (err) {
-      // Show more detailed error message
-      let errorMessage = 'Failed to add student: ';
-      if (err.response) {
-        // Server responded with error status
-        if (err.response.data && err.response.data.message) {
-          errorMessage += err.response.data.message;
-          // Provide more user-friendly message for common errors
-          if (err.response.data.message === "Email already registered") {
-            errorMessage = "Failed to add student: This email address is already registered. Please use a different email address.";
-          } else if (err.response.data.message === "Login already exists for this email") {
-            errorMessage = "Failed to add student: A login account already exists for this email address. Please use a different email address.";
-          }
-        } else if (err.response.data && err.response.data.error) {
-          errorMessage += err.response.data.error;
-        } else {
-          errorMessage += `Server error ${err.response.status}: ${err.response.statusText}`;
-        }
-      } else if (err.request) {
-        // Request was made but no response received
-        errorMessage += 'No response from server. Please check your connection.';
-      } else {
-        // Something else happened
-        errorMessage += err.message;
-      }
-      setError(errorMessage);
-      console.error('Error adding student:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewStudent({
-      ...newStudent,
-      [name]: value
-    });
-  };
   
   // Toggle student status
   const toggleStudentStatus = async (id, currentStatus) => {
     try {
       setLoading(true);
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-      const response = await axios.patch(`http://localhost:3000/api/students/${id}/status`, { status: newStatus });
+      const response = await axios.patch(`http://localhost:3000/students/${id}/status`, { status: newStatus });
       
       // Update the student status in the state
       setStudents(students.map(student =>
@@ -246,6 +155,12 @@ const StudentManagement = ({ refreshDashboard }) => {
   const openEditForm = (student) => {
     setEditStudent({ ...student });
     setShowEditForm(true);
+  };
+  
+  // Open info modal with student data
+  const openInfoModal = (student) => {
+    setSelectedStudent(student);
+    setShowInfoModal(true);
   };
   
   // Edit student
@@ -356,203 +271,18 @@ const StudentManagement = ({ refreshDashboard }) => {
       
       {/* Add Student Form Modal */}
       {showAddForm && (
-        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  <Plus size={20} className="me-2" />
-                  Add New Student
-                </h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={() => setShowAddForm(false)}
-                ></button>
-              </div>
-              <form onSubmit={handleAddStudent}>
-                <div className="modal-body">
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Roll Number</label>
-                      <input
-                        type="number"
-                        className="form-control"
-                        name="rollno"
-                        value={newStudent.rollno}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Unique roll number"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="name"
-                        value={newStudent.name}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Full name of student"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Father's Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="fname"
-                        value={newStudent.fname}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Father's full name"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Mother's Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="mname"
-                        value={newStudent.mname}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Mother's full name"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Gender</label>
-                      <select
-                        className="form-select"
-                        name="gender"
-                        value={newStudent.gender}
-                        onChange={handleInputChange}
-                        required
-                      >
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Program</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="program"
-                        value={newStudent.program}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="e.g., BCA, BBA, etc."
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Branch</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="branch"
-                        value={newStudent.branch}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="e.g., Computer Science, Arts, etc."
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Year</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="year"
-                        value={newStudent.year}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="YYYY (e.g., 2023)"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Contact Number</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="contactno"
-                        value={newStudent.contactno}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="10-digit number starting with 6,7,8 or 9"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Email Address</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="emailaddress"
-                        value={newStudent.emailaddress}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="student@example.com"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">Password</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={newStudent.password}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Minimum 6 characters"
-                      />
-                    </div>
-                    <div className="col-md-12 mb-3">
-                      <label className="form-label">Address</label>
-                      <textarea
-                        className="form-control"
-                        name="address"
-                        value={newStudent.address}
-                        onChange={handleInputChange}
-                        required
-                        rows="3"
-                        placeholder="Full residential address"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    onClick={() => setShowAddForm(false)}
-                  >
-                    <X size={18} className="me-1" />
-                    Cancel
-                  </button>
-                  <button 
-                    type="submit" 
-                    className="btn btn-primary"
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                        Adding...
-                      </>
-                    ) : (
-                      <>
-                        <Save size={18} className="me-1" />
-                        Add Student
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <AddStudent
+          onStudentAdded={(student) => {
+            setStudents([...students, student]);
+            setShowAddForm(false);
+            // Refresh the dashboard to show updated student count
+            if (refreshDashboard) {
+              refreshDashboard();
+            }
+            alert('Student added successfully!');
+          }}
+          onCancel={() => setShowAddForm(false)}
+        />
       )}
       
       {/* Edit Student Form Modal */}
@@ -737,6 +467,111 @@ const StudentManagement = ({ refreshDashboard }) => {
         </div>
       )}
       
+      {/* Student Info Modal */}
+      {showInfoModal && selectedStudent && (
+        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  <Info size={20} className="me-2" />
+                  Student Details
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowInfoModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Roll Number</label>
+                    <p className="form-control-plaintext">{selectedStudent.rollno}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Name</label>
+                    <p className="form-control-plaintext">{selectedStudent.name}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Father's Name</label>
+                    <p className="form-control-plaintext">{selectedStudent.fname}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Mother's Name</label>
+                    <p className="form-control-plaintext">{selectedStudent.mname}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Gender</label>
+                    <p className="form-control-plaintext">{selectedStudent.gender}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Program</label>
+                    <p className="form-control-plaintext">{selectedStudent.program}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Branch</label>
+                    <p className="form-control-plaintext">{selectedStudent.branch}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Year</label>
+                    <p className="form-control-plaintext">{selectedStudent.year}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Contact Number</label>
+                    <p className="form-control-plaintext">{selectedStudent.contactno}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Email Address</label>
+                    <p className="form-control-plaintext">{selectedStudent.emailaddress}</p>
+                  </div>
+                  {/* <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Status</label>
+                    <p className="form-control-plaintext">
+                      <span className={`badge ${selectedStudent.status === 'active' ? 'bg-success' : 'bg-danger'}`}>
+                        {selectedStudent.status}
+                      </span>
+                    </p>
+                  </div> */}
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Registration Date</label>
+                    <p className="form-control-plaintext">
+                      {new Date(selectedStudent.regdate).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Created At</label>
+                    <p className="form-control-plaintext">
+                      {new Date(selectedStudent.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Last Updated</label>
+                    <p className="form-control-plaintext">
+                      {new Date(selectedStudent.updatedAt).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="col-md-12 mb-3">
+                    <label className="form-label fw-bold">Address</label>
+                    <p className="form-control-plaintext">{selectedStudent.address}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowInfoModal(false)}
+                >
+                  <X size={18} className="me-1" />
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Students Table */}
       <div className="card">
         <div className="card-body">
@@ -766,7 +601,7 @@ const StudentManagement = ({ refreshDashboard }) => {
                 </div>
               ) : (
                 <div className="table-responsive">
-                  <table className="table text-center table-hover">
+                  <table className="table table-hover text-center">
                     <thead>
                       <tr>
                         <th>Roll No.</th>
@@ -775,7 +610,8 @@ const StudentManagement = ({ refreshDashboard }) => {
                         <th>Branch</th>
                         <th>Email</th>
                         <th>Contact</th>
-                        <th colSpan={2} >Actions</th>
+                        {/* <th>Status</th> */}
+                        <th colSpan={2}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -802,6 +638,14 @@ const StudentManagement = ({ refreshDashboard }) => {
                          <td>
                            <div className="d-flex gap-1">
                              <button
+                               className="btn btn-info btn-sm"
+                               onClick={() => openInfoModal(student)}
+                               disabled={loading}
+                               title="View student details"
+                             >
+                               <Info size={14} />
+                             </button>
+                             <button
                                className="btn btn-warning btn-sm"
                                onClick={() => openEditForm(student)}
                                disabled={loading}
@@ -814,7 +658,7 @@ const StudentManagement = ({ refreshDashboard }) => {
                                onClick={() => toggleStudentStatus(student._id, student.status)}
                                disabled={loading}
                                style={{
-                                 backgroundColor: student.status === 'active' ? '#28a745' : '#dc3545',
+                                 backgroundColor: student.status === 'active' ? '#dc3545' : '#28a745',
                                  color: 'white'
                                }}
                                title={student.status === 'active' ? 'Deactivate student' : 'Activate student'}
@@ -826,7 +670,7 @@ const StudentManagement = ({ refreshDashboard }) => {
                                )}
                              </button> */}
                              <button
-                               className="btn btn-danger btn-lg"
+                               className="btn btn-danger btn-sm"
                                onClick={() => deleteStudent(student._id)}
                                disabled={loading}
                                title="Delete student"

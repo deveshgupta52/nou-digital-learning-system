@@ -5,95 +5,102 @@ import enquiryModel from '../models/Enquiry.js';
 const data = [
   {
     "name": "Rahul Sharma",
-    "gender": "Male",
-    "address": "123 MG Road, Delhi",
-    "contactNo": 9876543210,
+    "phone": 9876543210,
     "email": "rahul.sharma@example.com",
-    "enquiryText": "I want to know more about your training programs.",
-    "enquiryDate": "2025-08-01T10:30:00Z"
+    "subject": "Course Inquiry",
+    "message": "I would like to know more about the upcoming web development course.",
+    "status": "New"
   },
   {
-    "name": "Priya Mehta",
-    "gender": "Female",
-    "address": "45 Park Avenue, Mumbai",
-    "contactNo": 9988776655,
-    "email": "priya.mehta@example.com",
-    "enquiryText": "Please send me the brochure for the new course.",
-    "enquiryDate": "2025-08-02T09:15:00Z"
+    "name": "Priya Verma",
+    "phone": 9123456780,
+    "email": "priya.verma@example.com",
+    "subject": "Payment Issue",
+    "message": "I have paid for the course but it still shows pending in my dashboard.",
+    "status": "In Progress"
   },
   {
-    "name": "Amit Verma",
-    "gender": "Male",
-    "address": "78 Civil Lines, Lucknow",
-    "contactNo": 9123456780,
-    "email": "amit.verma@example.com",
-    "enquiryText": "Is there any discount for early registration?",
-    "enquiryDate": "2025-08-03T14:45:00Z"
+    "name": "Amit Kumar",
+    "phone": 9811122233,
+    "email": "amit.kumar@example.com",
+    "subject": "Certificate Request",
+    "message": "I completed the Python course and would like to request my certificate.",
+    "status": "Resolved"
   },
   {
-    "name": "Neha Kapoor",
-    "gender": "Female",
-    "address": "56 Connaught Place, Delhi",
-    "contactNo": 9765432109,
-    "email": "neha.kapoor@example.com",
-    "enquiryText": "I want details about the weekend batch.",
-    "enquiryDate": "2025-08-04T16:20:00Z"
+    "name": "Sneha Gupta",
+    "phone": 9001234567,
+    "email": "sneha.gupta@example.com",
+    "subject": "Login Problem",
+    "message": "I am unable to log in to my account after resetting my password.",
+    "status": "New"
   },
   {
-    "name": "Rohit Singh",
-    "gender": "Male",
-    "address": "12 Residency Road, Bangalore",
-    "contactNo": 9845123456,
-    "email": "rohit.singh@example.com",
-    "enquiryText": "Can I attend a demo class before enrolling?",
-    "enquiryDate": "2025-08-05T11:00:00Z"
+    "name": "Vikram Singh",
+    "phone": 9786543210,
+    "email": "vikram.singh@example.com",
+    "subject": "Course Duration",
+    "message": "Could you please tell me the duration and timings of the AI course?",
+    "status": "New"
   },
   {
-    "name": "Ananya Gupta",
-    "gender": "Female",
-    "address": "90 Salt Lake, Kolkata",
-    "contactNo": 9876012345,
-    "email": "ananya.gupta@example.com",
-    "enquiryText": "Please provide the list of trainers.",
-    "enquiryDate": "2025-08-06T08:45:00Z"
-  },
-  {
-    "name": "Vikram Chauhan",
-    "gender": "Male",
-    "address": "33 Sector 22, Chandigarh",
-    "contactNo": 9811122233,
-    "email": "vikram.chauhan@example.com",
-    "enquiryText": "What is the course duration and fees?",
-    "enquiryDate": "2025-08-07T15:10:00Z"
-  },
-  {
-    "name": "Sakshi Malhotra",
-    "gender": "Female",
-    "address": "77 GT Road, Amritsar",
-    "contactNo": 9998887776,
-    "email": "sakshi.malhotra@example.com",
-    "enquiryText": "Do you offer online classes?",
-    "enquiryDate": "2025-08-08T12:35:00Z"
+    "name": "Ritika Mehta",
+    "phone": 9098765432,
+    "email": "ritika.mehta@example.com",
+    "subject": "Refund Request",
+    "message": "I mistakenly enrolled in the wrong course and would like a refund.",
+    "status": "In Progress"
   },
   {
     "name": "Karan Patel",
-    "gender": "Male",
-    "address": "101 SG Highway, Ahmedabad",
-    "contactNo": 9825098250,
+    "phone": 9812233445,
     "email": "karan.patel@example.com",
-    "enquiryText": "What are the prerequisites for joining?",
-    "enquiryDate": "2025-08-09T17:50:00Z"
+    "subject": "Course Materials",
+    "message": "Where can I download the materials for the Data Science course?",
+    "status": "Resolved"
   },
   {
-    "name": "Isha Reddy",
-    "gender": "Female",
-    "address": "14 Banjara Hills, Hyderabad",
-    "contactNo": 9866012345,
-    "email": "isha.reddy@example.com",
-    "enquiryText": "Kindly share the class timings.",
-    "enquiryDate": "2025-08-10T09:05:00Z"
+    "name": "Shalini Nair",
+    "phone": 9877654321,
+    "email": "shalini.nair@example.com",
+    "subject": "Batch Change",
+    "message": "I would like to change my batch from evening to morning.",
+    "status": "New"
+  },
+  {
+    "name": "Rohit Yadav",
+    "phone": 9934567890,
+    "email": "rohit.yadav@example.com",
+    "subject": "Technical Issue",
+    "message": "The video lectures are not loading on my browser.",
+    "status": "In Progress"
+  },
+  {
+    "name": "Ananya Roy",
+    "phone": 9876543201,
+    "email": "ananya.roy@example.com",
+    "subject": "Exam Date",
+    "message": "When will the final exam for the Java course be scheduled?",
+    "status": "Resolved"
+  },
+  {
+    "name": "Harsh Malhotra",
+    "phone": 9798123456,
+    "email": "harsh.malhotra@example.com",
+    "subject": "Discount Query",
+    "message": "Is there any discount available for students enrolling in multiple courses?",
+    "status": "New"
+  },
+  {
+    "name": "Meera Joshi",
+    "phone": 9012345678,
+    "email": "meera.joshi@example.com",
+    "subject": "Course Recommendation",
+    "message": "Could you recommend a course for beginners in data analytics?",
+    "status": "New"
   }
-];
+]
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/oesdb')
 .then(() => console.log("Database connected"))

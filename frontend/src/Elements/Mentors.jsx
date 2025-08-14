@@ -1,26 +1,26 @@
-import React from 'react';
+import React from "react";
 
 const mentors = [
   {
     name: "Prof. (Dr.) K. C. Sinha",
     title: "Vice-Chancellor",
-    image: "https://nouegyan.in/assets/img/mentor/vc.jpg"
+    image: "https://nouegyan.in/assets/img/mentor/vc.jpg",
   },
   {
-    name: "Prof. (Dr.) K. C. Sinha",
-    title: "Vice-Chancellor",
-    image: "https://nouegyan.in/assets/img/mentor/vc.jpg"
+    name: "Prof. (Dr.) Sanjoy Kumar",
+    title: "Pro Vice-Chancellor",
+    image: "https://nouegyan.in/assets/img/mentor/pvc.jpg",
   },
   {
-    name: "Prof. (Dr.) K. C. Sinha",
-    title: "Vice-Chancellor",
-    image: "https://nouegyan.in/assets/img/mentor/vc.jpg"
+    name: "Dr. Md. Habibur Rahman",
+    title: "Registrar",
+    image: "https://nouegyan.in/assets/img/mentor/registrar1.jpeg",
   },
   {
-    name: "Prof. (Dr.) K. C. Sinha",
-    title: "Vice-Chancellor",
-    image: "https://nouegyan.in/assets/img/mentor/vc.jpg"
-  }
+    name: "Dr. Neelam Kumari",
+    title: "Registrat(Exam)",
+    image: "https://nouegyan.in/assets/img/mentor/examreg.jpg",
+  },
 ];
 
 const MentorCard = ({ name, title, image }) => (
@@ -30,11 +30,11 @@ const MentorCard = ({ name, title, image }) => (
         <div
           className="d-flex justify-content-center align-items-center"
           style={{
-            height: "180px",
-            width: "200px",
+            height: "155px",
+            width: "155px",
             backgroundColor: "white",
             border: "1px solid darkred",
-            borderRadius: "50%"
+            borderRadius: "10%",
           }}
         >
           <img
@@ -44,7 +44,7 @@ const MentorCard = ({ name, title, image }) => (
               height: "150px",
               width: "150px",
               border: "1px solid darkred",
-              borderRadius: "50%"
+              borderRadius: "10%",
             }}
           />
         </div>
@@ -66,23 +66,27 @@ const Mentors = () => {
         {/* Header */}
         <div className="row">
           <div className="col-1 ms-5 pe-0">
-            <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">OUR MENTORS</h2>
+            <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">
+              OUR MENTORS
+            </h2>
           </div>
-          
+
           <div className="col-7"></div>
         </div>
 
         {/* Sub-header */}
         <div className="row">
           <div className="col-md-7 fs-3 fw-bold ms-5">
-            <p>ADMINISTRATIVE <span className="theme-text-orange">SETUP</span></p>
+            <p>
+              ADMINISTRATIVE <span className="theme-text-orange">SETUP</span>
+            </p>
           </div>
           <div className="col-md-4"></div>
         </div>
 
         {/* Cards */}
         <div className="row theme-bg-grey">
-          <div className="col theme-bg-grey" style={{ height: "220px" }}>
+          <div className="col theme-bg-grey" style={{ height: "400px" }}>
             <div className="row d-flex gap-1 justify-content-evenly">
               {mentors.map((mentor, index) => (
                 <MentorCard

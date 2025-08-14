@@ -21,7 +21,7 @@ app.use(cors());
 app.use("/enquiry", enquiryRoute);
 app.use("/result", resultRoute);
 app.use('/courses', courseRoute);
-app.use('/api/students',authRoute)
+app.use('/students',authRoute)
 app.use('/students',student_route)
 app.use('/api/admin',adminRoute)
 app.use('/api/news',newsRoutes)

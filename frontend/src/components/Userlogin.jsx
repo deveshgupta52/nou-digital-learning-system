@@ -13,7 +13,7 @@ function Userlogin() {
     const user = { userid: email, password };
     
     try {
-      const res = await axios.post('http://localhost:3000/api/students/login', user);
+      const res = await axios.post('http://localhost:3000/students/login', user);
       const data = res.data;
       console.log("Server response:", res.data.message);
 

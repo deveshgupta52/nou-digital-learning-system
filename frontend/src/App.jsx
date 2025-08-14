@@ -16,6 +16,9 @@ import QuestionBank from "./components/Examination/QuestionBank";
 import Enquiry from "./components/Enquiry/Enquiry";
 import EnquiryForm from "./components/Enquiry/EnquiryForm";
 import AdStudent from './Admin/AdStudent';
+import AddStudent from "./Admin/AddStudent";
+import News from "./Elements/News";
+import ProtectedRoute from "./Elements/ProtectedRoute";
 
 function App() {
   return (
@@ -25,7 +28,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<Adminlogin />} />
-            <Route path="/admindash" element={<Dashboard />} />
+            <Route path="/admindash" element={
+              <ProtectedRoute>
+               <Dashboard />
+              </ProtectedRoute>
+} />
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Userlogin />} />
             <Route path="/registration" element={<Registration />} />
@@ -39,6 +46,8 @@ function App() {
             <Route path="/enquiry" element={<Enquiry />} />
             <Route path="/EnquiryForm" element={<EnquiryForm/>}/>
             <Route path="/admindash/students" element={<AdStudent/>}/>
+            <Route path="/AddStudents" elemen={<AddStudent/>} />
+            <Route path="/news" element={<News/>}/>
           </Routes>
         </BrowserRouter>
       </div>

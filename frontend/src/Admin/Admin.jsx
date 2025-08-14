@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Courses from "../components/Courses/Courses";
 import axios from "axios";
+
 
 import {
   Users,
@@ -17,7 +18,6 @@ import {
   Bell,
   Search,
   User,
-  Link,
 } from "lucide-react";
 import News from "../Elements/News";
 import ViewStudents from "../components/Student/ViewStudent";
@@ -31,6 +31,11 @@ const AdminDashboard = () => {
   const [stCount, setStCount] = useState(0);
   const [courseCount, setCourseCount] = useState(0);
   const [eqCount, setEqCount] = useState(0);
+
+  function handlelogout(){
+    localStorage.removeItem("logined")
+    navigate("/admin")
+  }
 
   useEffect(() => {
     const stCount = async () => {
@@ -160,25 +165,25 @@ const AdminDashboard = () => {
       icon: <Plus size={20} />,
       label: "Add Student",
       color: "#ff8c00",
-      href: "#add-student",
+      href: "/admindash/students",
     },
     {
       icon: <Plus size={20} />,
       label: "Create Course",
       color: "#ff6b35",
-      href: "#create-course",
+      href: "/courses",
     },
     {
       icon: <FileText size={20} />,
       label: "New Exam",
       color: "#ffa500",
-      href: "#new-exam",
+      href: "#",
     },
     {
       icon: <MessageSquare size={20} />,
       label: "Post News",
       color: "#ffb347",
-      href: "#post-news",
+      href: "/news",
     },
   ];
 
@@ -287,8 +292,9 @@ const AdminDashboard = () => {
                 <button
                   className="btn btn-link text-decoration-none p-0"
                   style={{ color: "#ff8c00" }}
+                  onClick={handlelogout}
                 >
-                  Admin User <User size={16} className="ms-1" />
+                  Logout <User size={16} className="ms-1" />
                 </button>
               </div>
             </div>
@@ -457,6 +463,7 @@ const AdminDashboard = () => {
                       <div className="row">
                         {quickActions.map((action, index) => (
                           <div key={index} className="col-md-6 col-lg-3 mb-3">
+                            <Link key={index} to={action.href}>
                             <button
                               className="btn w-100 py-3 border-0 rounded-3 fw-semibold"
                               style={{
@@ -480,6 +487,7 @@ const AdminDashboard = () => {
                                 <span className="ms-2">{action.label}</span>
                               </div>
                             </button>
+                            </Link>
                           </div>
                         ))}
                       </div>
