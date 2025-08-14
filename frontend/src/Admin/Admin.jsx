@@ -32,6 +32,11 @@ const AdminDashboard = () => {
   const [courseCount, setCourseCount] = useState(0);
   const [eqCount, setEqCount] = useState(0);
 
+  function handlelogout(){
+    localStorage.removeItem("logined")
+    navigate("/admin")
+  }
+
   useEffect(() => {
     const stCount = async () => {
       const res = await axios.get("http://localhost:3000/students/count");
@@ -287,8 +292,9 @@ const AdminDashboard = () => {
                 <button
                   className="btn btn-link text-decoration-none p-0"
                   style={{ color: "#ff8c00" }}
+                  onClick={handlelogout}
                 >
-                  Admin User <User size={16} className="ms-1" />
+                  Logout <User size={16} className="ms-1" />
                 </button>
               </div>
             </div>
