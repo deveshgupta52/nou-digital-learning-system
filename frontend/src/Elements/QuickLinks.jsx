@@ -27,7 +27,7 @@ function QuickLinks() {
           <div className="col-1 ms-5 pe-0">
             <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">LINKS</h2>
           </div>
-          <div className="col-1 orange-line mb-3 ms-3"></div>
+          {/* <div className="col-1 orange-line mb-3 ms-3"></div> */}
           <div className="col-7"></div>
           <div className="col-3"></div>
         </div>

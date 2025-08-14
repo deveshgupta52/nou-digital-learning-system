@@ -10,7 +10,7 @@ const AboutSystem = () => {
     <div className="row">
       <div className="section-heading mb-5">
       <p className="desc-label theme-text-grey">DESCRIPTION</p>
-      <div className="orange-line mb-2"></div>
+      {/* <div className="orange-line mb-2"></div> */}
       <h2>
         <span className="text-dark fw-bold">ABOUT </span>
         <span className="theme-text-orange fw-bold">DIGITAL ASSESSMENT SYSTEM</span>

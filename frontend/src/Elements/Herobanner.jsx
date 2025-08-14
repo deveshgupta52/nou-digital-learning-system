@@ -25,7 +25,7 @@ function HeroBanner() {
           <div className="col-sm-3 text-center my-auto hero-title theme-text-white">
             WELCOME <span className="theme-text-amber">USERS</span>
           </div>
-          <div className="col-sm-9 py-4">
+          <div className="col-sm-9 py-4" >
             <nav className="navbar navbar-expand-lg d-flex justify-content-center align-items-center m-0 p-0">
               <div>
                 <button
@@ -41,14 +41,14 @@ function HeroBanner() {
                   <span className="navbar-toggler-icon" style={{ filter: 'invert(1)' }}></span>
                 </button>
 
-                <div
+                <div 
                   className="collapse navbar-collapse d-flex justify-content-center align-items-center"
                   id="navbarSupportedContent"
                 >
                   <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item dropdown">
                       <a
-                        className="nav-link dropdown-toggle fs-5 text-white fw-semibold px-3"
+                        className="nav-link  fs-5 text-white fw-semibold px-3"
                         href="#"
                         role="button"
                         data-bs-toggle="dropdown"

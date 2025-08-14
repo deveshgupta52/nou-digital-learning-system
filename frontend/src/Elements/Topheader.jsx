@@ -43,7 +43,7 @@ function Topheader() {
           </div>
         </div>
         <div className="col-sm-6">
-          <h3 className="theme-text-darkred fw-bold mb-1">DIGITAL ASSESSMENT SYSTEM</h3>
+          <h3 className="theme-text-darkred fw-bold mb-1">DIGITAL LEARNING AND ASSESSMENT SYSTEM</h3>
           <p className="theme-text-grey mb-0 fs-6">(Advanced Digital System and Assessment Platform)</p>
         </div>
         <div className="col-sm-4 d-flex gap-3 align-items-center justify-content-center">

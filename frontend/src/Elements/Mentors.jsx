@@ -31,7 +31,7 @@ const MentorCard = ({ name, title, image }) => (
           className="d-flex justify-content-center align-items-center"
           style={{
             height: "180px",
-            width: "200px",
+            width: "190px",
             backgroundColor: "white",
             border: "1px solid darkred",
             borderRadius: "50%"
@@ -41,8 +41,8 @@ const MentorCard = ({ name, title, image }) => (
             src={image}
             alt={name}
             style={{
-              height: "150px",
-              width: "150px",
+              height: "160px",
+              width: "160px",
               border: "1px solid darkred",
               borderRadius: "50%"
             }}
@@ -61,11 +61,11 @@ const MentorCard = ({ name, title, image }) => (
 
 const Mentors = () => {
   return (
-    <div className="row theme-bg-grey mt-5">
-      <div className="col-12">
+    <div className="row theme-bg-grey " style={{height:'500px'}}>
+      <div className="col-12  mb-5">
         {/* Header */}
         <div className="row">
-          <div className="col-1 ms-5 pe-0">
+          <div className="col-1 ms-5 ">
             <h2 className="fw-bolder theme-text-grey fs-6 mt-5 pt-5">OUR MENTORS</h2>
           </div>
           
@@ -81,7 +81,7 @@ const Mentors = () => {
         </div>
 
         {/* Cards */}
-        <div className="row theme-bg-grey">
+        <div className="row theme-bg-grey  mb-5">
           <div className="col theme-bg-grey" style={{ height: "220px" }}>
             <div className="row d-flex gap-1 justify-content-evenly">
               {mentors.map((mentor, index) => (

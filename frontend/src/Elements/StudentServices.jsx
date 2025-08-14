@@ -11,10 +11,10 @@ const StudentServices = () => {
     { img: "https://thumbs.dreamstime.com/b/colorful-online-education-e-learning-educational-apps-flat-design-illustration-colorful-flat-design-illustration-online-375952335.jpg", title: "Courses" },
     { img: "https://static.vecteezy.com/system/resources/previews/046/378/738/non_2x/scholarship-certificate-badge-and-money-cartoon-concept-completion-certificate-certificates-of-achievement-education-awards-scholarships-bachelor-degrees-diplomas-education-finance-concept-vector.jpg", title: "Scholarship" },
     { img: "https://c8.alamy.com/comp/2RBHT0K/technical-support-system-vector-illustration-with-software-development-customer-service-and-technology-help-in-flat-cartoon-hand-drawn-templates-2RBHT0K.jpg", title: "Support" },
-    { img: "https://img.freepik.com/premium-vector/tourist-with-backpack-suitcase-going-hostel-entry-hotel-building-night-accommodation-colored-flat-vector-illustration-young-woman-with-luggage-walking-house-entrance_198278-12413.jpg", title: "Hostel" },
-    { img: "https://static.vecteezy.com/system/resources/previews/000/663/153/original/young-people-training-sports-cartoons-vector.jpg", title: "Sports" },
-    { img: "https://static.vecteezy.com/system/resources/previews/012/710/081/original/event-planner-template-hand-drawn-cartoon-flat-illustration-with-planning-schedule-time-management-business-agenda-and-calendar-concept-vector.jpg", title: "Events" },
-    { img: "https://thumbs.dreamstime.com/b/mentoring-program-established-alumni-offering-career-guidance-financial-support-to-students-pursuing-specific-fields-317485625.jpg", title: "Alumni" }
+    // { img: "https://img.freepik.com/premium-vector/tourist-with-backpack-suitcase-going-hostel-entry-hotel-building-night-accommodation-colored-flat-vector-illustration-young-woman-with-luggage-walking-house-entrance_198278-12413.jpg", title: "Hostel" },
+    // { img: "https://static.vecteezy.com/system/resources/previews/000/663/153/original/young-people-training-sports-cartoons-vector.jpg", title: "Sports" },
+    // { img: "https://static.vecteezy.com/system/resources/previews/012/710/081/original/event-planner-template-hand-drawn-cartoon-flat-illustration-with-planning-schedule-time-management-business-agenda-and-calendar-concept-vector.jpg", title: "Events" },
+    // { img: "https://thumbs.dreamstime.com/b/mentoring-program-established-alumni-offering-career-guidance-financial-support-to-students-pursuing-specific-fields-317485625.jpg", title: "Alumni" }
   ];
 
   // Card UI
