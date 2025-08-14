@@ -34,7 +34,7 @@ function Registration() {
 const res=await axios.post("http://localhost:3000/students/register",formData);
 
     console.log(res.data);
-    navigate("/admin");
+    navigate("/login");
     setFormData({
     rollno: '',
     name: '',

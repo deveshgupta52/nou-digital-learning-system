@@ -182,7 +182,7 @@ const Courses = () => {
         <div>
           <div className="table-responsive">
             <table className="table table-bordered">
-              <thead className="thead-dark">
+              <thead className="thead-dark" >
                 <tr>
                   <th>Course Code</th>
                   <th>Course Name</th>
