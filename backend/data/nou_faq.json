@@ -1,0 +1,27 @@
+[
+  {
+    "question": "NOU portal par login kaise karun?",
+    "answer": "Official LMS portal par jaakar apna enrollment number aur password dalein. Agar password bhool gaye ho to 'Forgot Password' use karein.",
+    "tags": ["login", "portal", "lms", "account"]
+  },
+  {
+    "question": "Exam timetable kab aata hai?",
+    "answer": "Exam timetable usually notice board par publish hota hai. Dates change ho sakti hain, isliye latest notice zaroor check karein.",
+    "tags": ["exam", "timetable", "schedule"]
+  },
+  {
+    "question": "Admission process kya hai?",
+    "answer": "Online application form fill karein, documents upload karein, fee payment complete karein. Confirmation ke liye portal par status check karein.",
+    "tags": ["admission", "apply", "fee"]
+  },
+  {
+    "question": "Results kaise check karun?",
+    "answer": "Results official portal/notice section me publish hote hain. Apna enrollment ya roll number enter karke dekh sakte hain.",
+    "tags": ["result", "marks", "score"]
+  },
+  {
+    "question": "Assignment submission ka process?",
+    "answer": "LMS me subject page par assignment upload section me due date se pehle PDF/Doc format me submit karein.",
+    "tags": ["assignment", "upload", "lms"]
+  }
+]
