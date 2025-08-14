@@ -6,6 +6,8 @@ import {
 } from "../controllers/studentController.js";
 import Student from '../models/Student.js'
 
+
+
 const router = express.Router();
 
 // ✅ Get all students (Admin use)

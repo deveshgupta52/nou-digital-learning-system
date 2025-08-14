@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Registration() {
+  const navigate= useNavigate();
   const [formData, setFormData] = useState({
     rollno: '',
     name: '',
@@ -28,8 +30,11 @@ function Registration() {
   const handleSubmit =async (e) => {
     e.preventDefault();
     try{
-const res=await axios.post("http://localhost:3000/students/register", formData);
+
+const res=await axios.post("http://localhost:3000/students/register",formData);
+
     console.log(res.data);
+    navigate("/admin");
     setFormData({
     rollno: '',
     name: '',

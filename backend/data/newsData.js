@@ -122,7 +122,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/oesdb")
 async function insertData() {
     try{
         await newsModel.deleteMany({});
-        await newsModel.insertMany(newsData);
+        // await newsModel.insertMany(newsData);
         console.log("data inserted");
     }
     catch(err) {

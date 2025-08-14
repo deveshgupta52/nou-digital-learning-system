@@ -15,6 +15,7 @@ const News = () => {
 const [showAddForm, setShowAddForm] = useState(false); // State for showing add news form
   const [addForm, setAddForm] = useState({ title: '', content: '', author: '', image: '' }); // Form data for adding news
   const [editForm, setEditForm] = useState({ title: '', content: '', author: '', image: '' }); // Form data for editing
+const [expandedNews, setExpandedNews] = useState({}); // Track which news items are expanded
 
   // Dashboard-like card style for consistent UI with admin panel
   const cardStyle = {
@@ -22,7 +23,7 @@ const [showAddForm, setShowAddForm] = useState(false); // State for showing add 
     border: 'none',
     boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
     transition: 'all 0.3s ease',
-    overflow: 'visible',
+    overflow:"visible",
     height: '100%',
     backgroundColor: '#fff'
   };
@@ -60,7 +61,13 @@ const [showAddForm, setShowAddForm] = useState(false); // State for showing add 
     padding: '0',
     margin: '0 0 0 8px'  // Add left margin for spacing between icons
   };
-
+// Function to toggle expanded state for a news item
+  const toggleExpanded = (newsId) => {
+    setExpandedNews(prev => ({
+      ...prev,
+      [newsId]: !prev[newsId]
+    }));
+  };
   // useEffect hook to fetch news when component mounts
   useEffect(() => {
     fetchNews();
@@ -481,8 +488,28 @@ const [showAddForm, setShowAddForm] = useState(false); // State for showing add 
                                 color: '#6c757d',
                                 fontSize: '0.9rem'
                               }}>
+                                {expandedNews[item._id] 
+                                  ? item.content 
+                                  : (item.content?.substring(0, 80) || 'No content available') + (item.content?.length > 80 ? '...' : '')}
                                 {item.content?.substring(0, 80) || 'No content available'}...
                               </p>
+                              {item.content && item.content.length > 80 && (
+                                <button
+                                  onClick={() => toggleExpanded(item._id)}
+                                  style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    color: '#ff8c00',
+                                    cursor: 'pointer',
+                                    fontWeight: '600',
+                                    padding: '0',
+                                    fontSize: '0.85rem',
+                                    textAlign: 'left',
+                                    marginBottom: '10px'
+                                  }}
+                                >
+                                  {expandedNews[item._id] ? 'Read Less' : 'Read More'}
+                                </button> )}
                               {/* News metadata section (author and date) */}
                               <div className="mt-auto">
                                 {/* Author information if available */}

@@ -19,15 +19,32 @@ import AdStudent from './Admin/AdStudent';
 import AddStudent from "./Admin/AddStudent";
 import News from "./Elements/News";
 import StudentDashboard from "./components/Student/StudentDasbard";
+import ProtectedRoute from "./Elements/ProtectedRoute";
+import ChatBot from "./Elements/ChatBot";
+import ChatBotButton from "./Elements/ChatBotButton";
+
 
 function App() {
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+
+  const toggleChatBot = () => {
+    setIsChatBotOpen(!isChatBotOpen);
+  };
   return (
     <>
       <div className="container-fluid ">
+
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admindash" element={<Dashboard />} />
+
+
+            <Route path="/admin" element={<Adminlogin />} />
+            <Route path="/admindash" element={
+              <ProtectedRoute>
+               <Dashboard />
+              </ProtectedRoute>
+} />
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Userlogin />} />
             <Route path="/registration" element={<Registration />} />
@@ -54,6 +71,20 @@ function App() {
 
           </Routes>
         </BrowserRouter>
+        {/* Floating ChatBot Button */}
+        <ChatBotButton onClick={toggleChatBot} isOpen={isChatBotOpen} />
+        
+        {/* ChatBot Component - Positioned Fixed */}
+        {isChatBotOpen && (
+          <div style={{
+            position: 'fixed',
+            bottom: '100px',
+            right: '20px',
+            zIndex: 1000
+          }}>
+            <ChatBot />
+          </div>
+        )}
       </div>
     </>
   );

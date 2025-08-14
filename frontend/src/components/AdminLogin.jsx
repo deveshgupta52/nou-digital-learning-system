@@ -18,6 +18,7 @@ function Adminlogin() {
       const res = await axios.post('http://localhost:3000/api/admin', user);
       if (res.data.msg === 'success') {
         window.alert('Welcome back');
+        localStorage.setItem("logined","true")
         navigate('/admindash');
        
       } else {
