@@ -18,6 +18,7 @@ import EnquiryForm from "./components/Enquiry/EnquiryForm";
 import AdStudent from './Admin/AdStudent';
 import AddStudent from "./Admin/AddStudent";
 import News from "./Elements/News";
+import StudentDashboard from "./components/Student/StudentDasbard";
 
 function App() {
   return (
@@ -26,7 +27,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/admin" element={<Adminlogin />} />
             <Route path="/admindash" element={<Dashboard />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Userlogin />} />
@@ -42,7 +42,16 @@ function App() {
             <Route path="/EnquiryForm" element={<EnquiryForm/>}/>
             <Route path="/admindash/students" element={<AdStudent/>}/>
             <Route path="/AddStudents" elemen={<AddStudent/>} />
+            <Route path="/admin" element={<Adminlogin />} />
             <Route path="/news" element={<News/>}/>
+
+            {/* Admin Routes */}
+
+
+            {/* Student Route */}
+
+            <Route path="/studentdash" element={<StudentDashboard/>}/>
+
           </Routes>
         </BrowserRouter>
       </div>

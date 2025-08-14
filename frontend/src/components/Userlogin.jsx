@@ -9,17 +9,16 @@ function Userlogin() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("clicked");
     const user = { userid: email, password };
     
     try {
-      const res = await axios.post('http://localhost:3000/api/students/login', user);
+      const res = await axios.post('http://localhost:3000/students/login', user);
       const data = res.data;
-      console.log("Server response:", res.data.message);
 
       if (data.message === "Login successful") {
+        localStorage.setItem('emailId', res.data.userid);
         window.alert("Welcome back!");
-        navigate('/');
+        navigate('/studentdash');
       } else {
         window.alert("Username or password is wrong");
       }

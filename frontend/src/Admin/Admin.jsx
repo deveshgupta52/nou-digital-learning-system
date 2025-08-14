@@ -141,12 +141,12 @@ const AdminDashboard = () => {
       active: activeSection === "question-bank",
       onClick: () => setActiveSection("question-bank"),
     },
-    {
-      icon: <FileText size={20} />,
-      label: "Examinations",
-      active: activeSection === "examinations",
-      onClick: () => setActiveSection("examinations"),
-    },
+    // {
+    //   icon: <FileText size={20} />,
+    //   label: "Examinations",
+    //   active: activeSection === "examinations",
+    //   onClick: () => setActiveSection("examinations"),
+    // },
     {
       icon: <Settings size={20} />,
       label: "Results",

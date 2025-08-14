@@ -21,7 +21,7 @@ router.get('/count', async (req,res) => {
 });
 
 // ✅ Get student by roll number
-router.get("/:rollno", getStudentByRoll);
+router.get("/:email", getStudentByRoll);
 
 // ✅ Create/Register new student
 router.post("/register", createStudent);

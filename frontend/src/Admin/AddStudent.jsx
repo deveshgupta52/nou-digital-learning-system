@@ -14,7 +14,7 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
     mname: '',
     gender: '',
     address: '',
-    program: '',
+    courseCode: '',
     branch: '',
     year: '',
     contactno: '',
@@ -79,7 +79,7 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
         mname: '',
         gender: '',
         address: '',
-        program: '',
+        courseCode: '',
         branch: '',
         year: '',
         contactno: '',
@@ -221,15 +221,15 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
                   </select>
                 </div>
                 <div className="col-md-6 mb-3">
-                  <label className="form-label">Program</label>
+                  <label className="form-label">courseCode</label>
                   <input
                     type="text"
                     className="form-control"
-                    name="program"
-                    value={newStudent.program}
+                    name="courseCode"
+                    value={newStudent.courseCode}
                     onChange={handleInputChange}
                     required
-                    placeholder="e.g., BCA, BBA, etc."
+                    placeholder="e.g. CS101, Ec102"
                     disabled={loading}
                   />
                 </div>

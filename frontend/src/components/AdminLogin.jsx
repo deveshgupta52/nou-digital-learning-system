@@ -51,11 +51,12 @@ function Adminlogin() {
     maxWidth: '500px',
     borderRadius: '20px',
     padding: '40px',
-    background: 'rgba(255, 255, 255, 0.1)',
+    // background: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'white',
     backdropFilter: 'blur(15px)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    border: '4px solid #ffc107',
     boxShadow: '0 25px 45px rgba(0, 0, 0, 0.2)',
-    color: '#fff',
+    color: '#ffc107',
   };
 
   const inputGroup = {
@@ -67,9 +68,10 @@ function Adminlogin() {
     width: '100%',
     padding: '12px 44px',
     borderRadius: '12px',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    border:'2px solid #ffc107',
+    // border: '1px solid rgba(255, 255, 255, 0.3)',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    color: '#fff',
+    color: 'black',
     outline: 'none',
     fontSize: '16px',
   };
@@ -137,7 +139,7 @@ position: 'absolute',
             <label style={{ fontWeight: '600', marginBottom: '8px', display: 'block' }}>
               Email Address
             </label>
-            <Mail size={20} style={iconStyle} />
+            <Mail size={20} style={iconStyle} className='text-dark' />
             <input
               type="email"
               style={inputStyle}
@@ -153,7 +155,7 @@ position: 'absolute',
             <label style={{ fontWeight: '600', marginBottom: '8px', display: 'block' }}>
               Password
             </label>
-            <Lock size={20} style={iconStyle} />
+            <Lock size={20} style={iconStyle} className='text-dark' />
             <input
               type={showPassword ? 'text' : 'password'}
               style={inputStyle}
