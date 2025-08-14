@@ -81,7 +81,7 @@ const Courses = () => {
         <div className="col ">
           <div
             id="carouselExampleSlidesOnly"
-            className="carousel slide"
+            className=""
             data-bs-ride="carousel"
           >
             <div
@@ -109,7 +109,7 @@ const Courses = () => {
               ))}
             </div>
 
-            {/* Carousel Indicators */}
+      
             <div
               className="carousel-indicators position-absolute bottom-0 start-0 mb-0"
               style={{ zIndex: 10 }}
@@ -127,6 +127,41 @@ const Courses = () => {
           </div>
         </div>
       </div>
+
+
+
+
+
+
+    {/* <div className="row">
+      <div class="card" style="width: 18rem;">
+        <img src= {courses.img} class="card-img-top" alt="..."/>
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          </div>
+          </div>
+          
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="..."/>
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              </div>
+          </div>
+          
+          
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="..."/>
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              </div>
+          </div>
+    </div> */}
+
+
+
+
+
+      
     </div>
   );
 };

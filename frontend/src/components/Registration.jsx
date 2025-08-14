@@ -11,7 +11,7 @@ function Registration() {
     mname: '',
     gender: '',
     address: '',
-    program: '',
+    courseCode: '',
     branch: '',
     year: '',
     contactno: '',
@@ -30,7 +30,9 @@ function Registration() {
   const handleSubmit =async (e) => {
     e.preventDefault();
     try{
+
 const res=await axios.post("http://localhost:3000/students/register",formData);
+
     console.log(res.data);
     navigate("/admin");
     setFormData({
@@ -39,19 +41,20 @@ const res=await axios.post("http://localhost:3000/students/register",formData);
     fname: '',
     mname: '',
     gender: '',
+    dob: '',
     address: '',
-    program: '',
+    courseCode: '',
     branch: '',
     year: '',
     contactno: '',
     emailaddress: '',
     password: ''
   });
-
+  window.alert("Registration Successfull");
     }catch(err){
      console.error(err.response?.data);
-  setMessage(err.response?.data?.message || "Registration failed!");
-  console.log(message)
+  // setMessage(err.response?.data?.message || "Registration failed!");
+  window.alert("Registration Failed!");
     }
     
   
@@ -229,6 +232,26 @@ const res=await axios.post("http://localhost:3000/students/register",formData);
                   </div>
                 </div>
 
+                <div className="col-md-6">
+                  <label className="form-label fw-bold" style={{color: '#ff8c00'}}>Date of Birth</label>
+                  <div className="input-group" style={styles.inputGroup}>
+                    <span className="input-group-text" style={styles.inputGroupText}>
+                     <i class="fa-solid fa-calendar"></i>
+                    </span>
+                    <input 
+                      type="date" 
+                      className="form-control" 
+                      name="dob" 
+                      value={formData.dob}
+                      onChange={handleInputChange}
+                      placeholder="Enter Mother's Name"
+                      style={styles.formControl}
+                      onFocus={(e) => e.target.style.borderColor = '#ff8c00'}
+                      onBlur={(e) => e.target.style.borderColor = '#ffa500'}
+                    />
+                  </div>
+                </div>
+
                 {/* Address */}
                 <div className="col-md-12">
                   <label className="form-label fw-bold" style={{color: '#ff8c00'}}>Address</label>
@@ -252,7 +275,7 @@ const res=await axios.post("http://localhost:3000/students/register",formData);
 
                 {/* Program */}
                 <div className="col-md-6">
-                  <label className="form-label fw-bold" style={{color: '#ff8c00'}}>Program</label>
+                  <label className="form-label fw-bold" style={{color: '#ff8c00'}}>Course Code</label>
                   <div className="input-group" style={styles.inputGroup}>
                     <span className="input-group-text" style={styles.inputGroupText}>
                       <i className="fas fa-graduation-cap"></i>
@@ -260,8 +283,8 @@ const res=await axios.post("http://localhost:3000/students/register",formData);
                     <input 
                       type="text" 
                       className="form-control" 
-                      name="program" 
-                      value={formData.program}
+                      name="courseCode" 
+                      value={formData.courseCode}
                       onChange={handleInputChange}
                       placeholder="Enter Program"
                       style={styles.formControl}

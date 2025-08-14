@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const difficultyColors = {
   Easy: "green",
@@ -9,34 +10,78 @@ const difficultyColors = {
 
 const Examination = () => {
   const [testStarted, setTestStarted] = useState(false);
-  const [publicQuestions, setPublicQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [testCompleted, setTestCompleted] = useState(false);
   const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0); // total remaining seconds
+  const [totalTime, setTotalTime] = useState(0); // total exam seconds
+  const [currentQuestionTime, setCurrentQuestionTime] = useState(0); // seconds for current question
+
+  const timerRef = useRef(null);
+  const questionTimerRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (testStarted) {
-      fetchPublicQuestions();
+      fetchQuestions();
     }
   }, [testStarted]);
 
-  const fetchPublicQuestions = async () => {
+  // Fetch questions from server
+  const fetchQuestions = async () => {
     try {
       const res = await axios.get("http://localhost:3000/questions?public=true");
-      setPublicQuestions(res.data);
+      setQuestions(res.data);
       setSelectedAnswers({});
       setCurrentIndex(0);
       setTestCompleted(false);
       setScore(0);
+
+      const totalTimeSec = res.data.reduce((acc, q) => acc + (q.time || 5), 0) * 60;
+      setTimeLeft(totalTimeSec);
+      setTotalTime(totalTimeSec);
+
+      // Start overall timer
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timerRef.current);
+            clearInterval(questionTimerRef.current);
+            handleSubmitTest();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      // Start first question timer
+      startQuestionTimer(res.data[0]?.time || 5);
     } catch (err) {
       console.error("Error fetching questions:", err);
     }
   };
 
-  const handleUserSelectOption = async (questionId, optionText) => {
-    if (selectedAnswers[questionId]) return; // already answered
+  const startQuestionTimer = (minutes) => {
+    if (questionTimerRef.current) clearInterval(questionTimerRef.current);
+    setCurrentQuestionTime(minutes * 60);
 
+    questionTimerRef.current = setInterval(() => {
+      setCurrentQuestionTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(questionTimerRef.current);
+          handleNextQuestion();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
+  const handleUserSelectOption = async (questionId, optionText) => {
+    if (selectedAnswers[questionId]) return;
     try {
       const res = await axios.post(`http://localhost:3000/questions/${questionId}/answer`, { selected: optionText });
       setSelectedAnswers((prev) => ({
@@ -52,21 +97,30 @@ const Examination = () => {
     }
   };
 
-  const nextQuestion = () => {
-    if (currentIndex < publicQuestions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  const handleNextQuestion = () => {
+    if (currentIndex < questions.length - 1) {
+      const nextIndex = currentIndex + 1;
+      setCurrentIndex(nextIndex);
+      startQuestionTimer(questions[nextIndex].time || 5);
+    } else {
+      handleSubmitTest();
     }
   };
 
-  const prevQuestion = () => {
+  const handlePrevQuestion = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      const prevIndex = currentIndex - 1;
+      setCurrentIndex(prevIndex);
+      startQuestionTimer(questions[prevIndex].time || 5);
     }
   };
 
   const handleSubmitTest = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (questionTimerRef.current) clearInterval(questionTimerRef.current);
+
     let calculatedScore = 0;
-    publicQuestions.forEach((q) => {
+    questions.forEach((q) => {
       if (selectedAnswers[q._id] && selectedAnswers[q._id].correct) {
         calculatedScore += q.marks || 1;
       }
@@ -75,21 +129,32 @@ const Examination = () => {
     setTestCompleted(true);
   };
 
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  };
+
+  const getProgressColor = () => {
+    const ratio = timeLeft / totalTime;
+    if (ratio > 0.5) return "#4caf50";
+    if (ratio > 0.2) return "#ff9800";
+    return "#f44336";
+  };
+
+  const overallProgress = totalTime ? (timeLeft / totalTime) * 100 : 0;
+  const questionProgress = questions[currentIndex]?.time
+    ? (currentQuestionTime / (questions[currentIndex].time * 60)) * 100
+    : 100;
+
   if (!testStarted) {
     return (
       <div style={{ padding: 20, textAlign: "center" }}>
         <h2>Welcome to the Examination</h2>
         <button
+          className="btn btn-success"
           onClick={() => setTestStarted(true)}
-          style={{
-            padding: "10px 20px",
-            fontSize: 16,
-            cursor: "pointer",
-            borderRadius: 5,
-            border: "none",
-            backgroundColor: "#1565c0",
-            color: "white",
-          }}
+          style={{ padding: "10px 20px", fontSize: 16, cursor: "pointer", borderRadius: 5, border: "none", color: "white" }}
         >
           Start Test
         </button>
@@ -102,58 +167,46 @@ const Examination = () => {
       <div style={{ padding: 20, textAlign: "center" }}>
         <h2>Test Completed!</h2>
         <p>
-          Your Score: <strong>{score}</strong> /{" "}
-          {publicQuestions.reduce((acc, q) => acc + (q.marks || 1), 0)}
+          Your Score: <strong>{score}</strong> / {questions.reduce((acc, q) => acc + (q.marks || 1), 0)}
         </p>
         <button
-          onClick={() => {
-            setTestStarted(false);
-            setSelectedAnswers({});
-            setCurrentIndex(0);
-            setTestCompleted(false);
-            setScore(0);
-          }}
-          style={{
-            padding: "10px 20px",
-            fontSize: 16,
-            cursor: "pointer",
-            borderRadius: 5,
-            border: "none",
-            backgroundColor: "#2e7d32",
-            color: "white",
-          }}
+          onClick={() => navigate("/")}
+          className="btn btn-success"
+          style={{ padding: "10px 20px", fontSize: 16, cursor: "pointer", borderRadius: 5, border: "none", color: "white", marginTop: 20 }}
         >
-          Restart Test
+          Back to Home
         </button>
       </div>
     );
   }
 
-  const q = publicQuestions[currentIndex];
+  const q = questions[currentIndex];
   const ans = selectedAnswers[q?._id];
 
   return (
-    <div
-      style={{
-        maxWidth: 600,
-        margin: "30px auto",
-        padding: 20,
-        borderRadius: 8,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        backgroundColor: "#fff",
-      }}
-    >
-      <h3>
-        Question {currentIndex + 1} of {publicQuestions.length}
-      </h3>
+    <div style={{ maxWidth: 600, margin: "30px auto", padding: 20, borderRadius: 8, boxShadow: "0 2px 8px rgba(0,0,0,0.1)", backgroundColor: "#fff" }}>
+      {/* Overall Timer */}
+      <div style={{ marginBottom: 5 }}>
+        <div style={{ height: 10, width: "100%", backgroundColor: "#ddd", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{ width: `${overallProgress}%`, height: "100%", backgroundColor: getProgressColor(), transition: "width 0.5s" }}></div>
+        </div>
+      </div>
+      <div style={{ textAlign: "right", marginBottom: 15, fontWeight: 600 }}>Total Time Left: {formatTime(timeLeft)}</div>
+
+      {/* Current Question Timer */}
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ height: 6, width: "100%", backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" }}>
+          <div style={{ width: `${questionProgress}%`, height: "100%", backgroundColor: "#42a5f5", transition: "width 0.5s" }}></div>
+        </div>
+        <div style={{ textAlign: "right", fontSize: 12 }}>Current Question Time Left: {formatTime(currentQuestionTime)}</div>
+      </div>
+
+      <h3>Question {currentIndex + 1} of {questions.length}</h3>
       <p style={{ fontWeight: "600", marginBottom: 12 }}>{q?.question}</p>
       <div style={{ fontSize: 13, marginBottom: 10, color: "#555" }}>
         <span style={{ marginRight: 15 }}>Subject: {q?.subject || "-"}</span>
         <span>
-          Difficulty:{" "}
-          <span style={{ color: difficultyColors[q?.difficulty] || "black" }}>
-            {q?.difficulty || "-"}
-          </span>
+          Difficulty: <span style={{ color: difficultyColors[q?.difficulty] || "black" }}>{q?.difficulty || "-"}</span>
         </span>
       </div>
 
@@ -182,12 +235,7 @@ const Examination = () => {
           }
 
           return (
-            <button
-              key={idx}
-              onClick={() => handleUserSelectOption(q._id, opt)}
-              disabled={!!ans}
-              style={btnStyle}
-            >
+            <button key={idx} onClick={() => handleUserSelectOption(q._id, opt)} disabled={!!ans} style={btnStyle}>
               <strong style={{ marginRight: 10 }}>{String.fromCharCode(65 + idx)}.</strong>
               {opt}
             </button>
@@ -200,67 +248,22 @@ const Examination = () => {
           {ans.correct ? (
             <span style={{ color: "#2e7d32", fontWeight: 600 }}>Correct ✅</span>
           ) : (
-            <span style={{ color: "#c62828", fontWeight: 600 }}>
-              Incorrect ❌ — Correct answer: {ans.correctAnswer}
-            </span>
+            <span style={{ color: "#c62828", fontWeight: 600 }}>Incorrect ❌ — Correct answer: {ans.correctAnswer}</span>
           )}
         </div>
       )}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 10,
-          flexWrap: "wrap",
-        }}
-      >
-        <button
-          onClick={prevQuestion}
-          disabled={currentIndex === 0}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            backgroundColor: currentIndex === 0 ? "#eee" : "#90caf9",
-            cursor: currentIndex === 0 ? "not-allowed" : "pointer",
-            flex: "1 1 auto",
-          }}
-        >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+        <button onClick={handlePrevQuestion} disabled={currentIndex === 0} style={{ padding: "8px 16px", borderRadius: 6, border: "1px solid #ccc", backgroundColor: currentIndex === 0 ? "#eee" : "#90caf9", cursor: currentIndex === 0 ? "not-allowed" : "pointer", flex: "1 1 auto" }}>
           Previous
         </button>
 
-        {currentIndex === publicQuestions.length - 1 ? (
-          <button
-            onClick={handleSubmitTest}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 6,
-              border: "none",
-              backgroundColor: "#2e7d32",
-              color: "white",
-              cursor: "pointer",
-              flex: "1 1 auto",
-            }}
-          >
+        {currentIndex === questions.length - 1 ? (
+          <button onClick={handleSubmitTest} style={{ padding: "8px 16px", borderRadius: 6, border: "none", backgroundColor: "#2e7d32", color: "white", cursor: "pointer", flex: "1 1 auto" }}>
             Submit Test
           </button>
         ) : (
-          <button
-            onClick={nextQuestion}
-            disabled={currentIndex === publicQuestions.length - 1}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              backgroundColor:
-                currentIndex === publicQuestions.length - 1 ? "#eee" : "#90caf9",
-              cursor:
-                currentIndex === publicQuestions.length - 1 ? "not-allowed" : "pointer",
-              flex: "1 1 auto",
-            }}
-          >
+          <button onClick={handleNextQuestion} style={{ padding: "8px 16px", borderRadius: 6, border: "1px solid #ccc", backgroundColor: "#90caf9", cursor: "pointer", flex: "1 1 auto" }}>
             Next
           </button>
         )}

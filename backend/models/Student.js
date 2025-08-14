@@ -34,16 +34,19 @@ const studentSchema = new mongoose.Schema(
         message: 'Gender must be Male, Female, or Other'
       }
     },
+    dob : {
+      type: Date,
+      required : true
+    },
     address: {
       type: String,
       required: [true, 'Address is required'],
       trim: true,
       maxlength: [500, 'Address too long']
     },
-    program: {
+    courseCode: {
       type: String,
-      required: [true, 'Program is required'],
-      trim: true
+      required: true
     },
     branch: {
       type: String,

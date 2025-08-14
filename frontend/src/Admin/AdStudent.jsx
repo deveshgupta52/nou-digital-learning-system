@@ -11,7 +11,7 @@ const StudentManagement = ({ refreshDashboard }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  
+
   // Form state for editing student
   const [editStudent, setEditStudent] = useState({
     _id: '',
@@ -21,7 +21,7 @@ const StudentManagement = ({ refreshDashboard }) => {
     mname: '',
     gender: '',
     address: '',
-    program: '',
+    courseCode: '',
     branch: '',
     year: '',
     contactno: '',
@@ -364,12 +364,12 @@ const StudentManagement = ({ refreshDashboard }) => {
                       </select>
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Program</label>
+                      <label className="form-label">Course Code</label>
                       <input
                         type="text"
                         className="form-control"
-                        name="program"
-                        value={editStudent.program}
+                        name="courseCode"
+                        value={editStudent.courseCode}
                         onChange={handleEditInputChange}
                         required
                       />
@@ -506,8 +506,8 @@ const StudentManagement = ({ refreshDashboard }) => {
                     <p className="form-control-plaintext">{selectedStudent.gender}</p>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label className="form-label fw-bold">Program</label>
-                    <p className="form-control-plaintext">{selectedStudent.program}</p>
+                    <label className="form-label fw-bold">Course Code</label>
+                    <p className="form-control-plaintext">{selectedStudent.courseCode}</p>
                   </div>
                   <div className="col-md-6 mb-3">
                     <label className="form-label fw-bold">Branch</label>
@@ -606,7 +606,7 @@ const StudentManagement = ({ refreshDashboard }) => {
                       <tr>
                         <th>Roll No.</th>
                         <th>Name</th>
-                        <th>Program</th>
+                        <th>Course</th>
                         <th>Branch</th>
                         <th>Email</th>
                         <th>Contact</th>
@@ -626,7 +626,7 @@ const StudentManagement = ({ refreshDashboard }) => {
                              {student.fname} & {student.mname}
                            </div>
                          </td>
-                         <td>{student.program}</td>
+                         <td>{student.courseCode}</td>
                          <td>{student.branch}</td>
                          <td>{student.emailaddress}</td>
                          <td>{student.contactno}</td>

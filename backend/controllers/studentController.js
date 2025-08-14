@@ -16,7 +16,8 @@ export const getAllStudents = async (req, res) => {
 // ✅ Get student by roll number
 export const getStudentByRoll = async (req, res) => {
   try {
-    const student = await Student.findOne({ rollno: req.params.rollno }).select('-password');
+    
+    const student = await Student.findOne({emailaddress : req.params.email}).select('-password');
     if (!student) return res.status(404).json({ message: 'Student not found' });
     res.json(student);
   } catch (error) {

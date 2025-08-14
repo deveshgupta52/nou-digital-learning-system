@@ -3,6 +3,7 @@ import Login from "../models/Login.js";
 
 // ✅ Login for Student/Admin
 export const loginUser = async (req, res) => {
+
   try {
     const { userid, password } = req.body;
 
@@ -21,7 +22,8 @@ export const loginUser = async (req, res) => {
     // 🔹 Return success + role
     res.json({
       message: "Login successful",
-      usertype: user.usertype
+      usertype: user.usertype,
+      userid: user.userid
     });
 
   } catch (error) {

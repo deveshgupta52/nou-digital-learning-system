@@ -9,7 +9,8 @@ const QuestionSchema = new mongoose.Schema({
   options: { type: [String], default: ["", "", "", ""] }, // MCQ options
   correctAnswer: { type: String, default: "" }, // store exact option text
   createdAt: { type: Date, default: Date.now },
-  public: { type: Boolean, default: true }
+  public: { type: Boolean, default: true },
+  time: {type: Number, default: 2}
 });
 
 const questionModel = mongoose.model('Question', QuestionSchema);
