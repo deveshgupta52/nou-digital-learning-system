@@ -110,20 +110,7 @@ const Courses = () => {
             </div>
 
       
-            <div
-              className="carousel-indicators position-absolute bottom-0 start-0 mb-0"
-              style={{ zIndex: 10 }}
-            >
-              {[0, 1, 2].map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  data-bs-target="#carouselExampleSlidesOnly"
-                  data-bs-slide-to={idx}
-                  className={idx === 0 ? 'active' : ''}
-                ></button>
-              ))}
-            </div>
+
           </div>
         </div>
       </div>
