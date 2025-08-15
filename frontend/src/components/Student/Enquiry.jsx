@@ -10,30 +10,30 @@ const Enquiry = () => {
   });
 
   const [enquiries, setEnquiries] = useState([
-    {
-      subject: "Course Registration Issue",
-      category: "Academic",
-      priority: "high",
-      status: "In Progress",
-      date: "2024-01-15",
-      description: "Unable to register for CS401 - Machine Learning course"
-    },
-    {
-      subject: "Library Access Problem",
-      category: "Facilities",
-      priority: "medium",
-      status: "Resolved",
-      date: "2024-01-10",
-      description: "Student ID card not working for library access"
-    },
-    {
-      subject: "Fee Payment Query",
-      category: "Financial",
-      priority: "low",
-      status: "Pending",
-      date: "2024-01-08",
-      description: "Question about semester fee payment deadline"
-    }
+    // {
+    //   subject: "Course Registration Issue",
+    //   category: "Academic",
+    //   priority: "high",
+    //   status: "In Progress",
+    //   date: "2024-01-15",
+    //   description: "Unable to register for CS401 - Machine Learning course"
+    // },
+    // {
+    //   subject: "Library Access Problem",
+    //   category: "Facilities",
+    //   priority: "medium",
+    //   status: "Resolved",
+    //   date: "2024-01-10",
+    //   description: "Student ID card not working for library access"
+    // },
+    // {
+    //   subject: "Fee Payment Query",
+    //   category: "Financial",
+    //   priority: "low",
+    //   status: "Pending",
+    //   date: "2024-01-08",
+    //   description: "Question about semester fee payment deadline"
+    // }
   ]);
 
   const [showForm, setShowForm] = useState(false);
@@ -54,8 +54,8 @@ const Enquiry = () => {
         status: "Pending",
         date: new Date().toISOString().split('T')[0]
       };
-      const res = await axios.post("http://localhost:3000/enquiries", formData)
-      console.log(res);
+      // const res = await axios.post("http://localhost:3000/enquiries", formData)
+      // console.log(res);
       setEnquiries(prev => [newEnquiry, ...prev]);
       setFormData({
         subject: '',

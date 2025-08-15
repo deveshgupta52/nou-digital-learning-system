@@ -285,7 +285,7 @@ const StudentDashboard = () => {
       case 'timetables':
         return <Timetables timetableData={timetableData} />;
       case 'results':
-        return <Results resultsData={resultsData} />;
+        return <h2>Result Not Declared</h2  >;
       case 'courses':
         return <Courses coursesData={coursesData} />;
       case 'exams':

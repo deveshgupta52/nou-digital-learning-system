@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
   function handlelogout(){
     localStorage.removeItem("logined")
-    navigate("/admin")
+    navigate("/")
   }
 
   useEffect(() => {
