@@ -77,15 +77,15 @@ const StudentProfile = ({ studentData }) => {
             </div>
             <div className="card-body">
               <div className="mb-3">
-                <strong>Attendance: {studentData.attendance}%</strong>
+                <strong>Attendance: 0%</strong>
                 <div className="progress mt-2">
-                  <div className="progress-bar" style={{ background: '#ff8c00', width: `${studentData.attendance}%` }}></div>
+                  <div className="progress-bar" style={{ background: '#ff8c00', width: `0%` }}></div>
                 </div>
               </div>
               <div className="mb-3">
-                <strong>Current GPA: {studentData.gpa}</strong>
+                <strong>Current GPA: 0</strong>
                 <div className="progress mt-2">
-                  <div className="progress-bar" style={{ background: '#ffa500', width: `${(studentData.gpa / 4) * 100}%` }}></div>
+                  <div className="progress-bar" style={{ background: '#ffa500', width: `${( 0 / 4) * 100}%` }}></div>
                 </div>
               </div>
             </div>

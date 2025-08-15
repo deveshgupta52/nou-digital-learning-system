@@ -15,9 +15,9 @@ const Examination = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [testCompleted, setTestCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(0); // total remaining seconds
-  const [totalTime, setTotalTime] = useState(0); // total exam seconds
-  const [currentQuestionTime, setCurrentQuestionTime] = useState(0); // seconds for current question
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
+  const [currentQuestionTime, setCurrentQuestionTime] = useState(0);
 
   const timerRef = useRef(null);
   const questionTimerRef = useRef(null);
@@ -29,7 +29,13 @@ const Examination = () => {
     }
   }, [testStarted]);
 
-  // Fetch questions from server
+  // ✅ Start first question timer after questions load
+  useEffect(() => {
+    if (questions.length > 0 && testStarted) {
+      startQuestionTimer(0);
+    }
+  }, [questions, testStarted]);
+
   const fetchQuestions = async () => {
     try {
       const res = await axios.get("http://localhost:3000/questions?public=true");
@@ -43,7 +49,6 @@ const Examination = () => {
       setTimeLeft(totalTimeSec);
       setTotalTime(totalTimeSec);
 
-      // Start overall timer
       if (timerRef.current) clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
@@ -57,22 +62,50 @@ const Examination = () => {
         });
       }, 1000);
 
-      // Start first question timer
-      startQuestionTimer(res.data[0]?.time || 5);
+      // ❌ Remove startQuestionTimer() from here
     } catch (err) {
       console.error("Error fetching questions:", err);
     }
   };
 
-  const startQuestionTimer = (minutes) => {
+  const startQuestionTimer = (index) => {
+    if (!questions[index]) return;
     if (questionTimerRef.current) clearInterval(questionTimerRef.current);
-    setCurrentQuestionTime(minutes * 60);
 
-    questionTimerRef.current = setInterval(() => {
+    const questionTime = questions[index].time || 5;
+    setCurrentQuestionTime(questionTime * 60);
+
+    questionTimerRef.current = setInterval(async () => {
       setCurrentQuestionTime((prev) => {
         if (prev <= 1) {
           clearInterval(questionTimerRef.current);
-          handleNextQuestion();
+
+          const currentQ = questions[index];
+
+          // Blank answer save on timeout
+          if (!selectedAnswers[currentQ._id]) {
+            axios.post(`http://localhost:3000/questions/${currentQ._id}/answer`, { selected: null })
+              .then(() => {
+                setSelectedAnswers((prev) => ({
+                  ...prev,
+                  [currentQ._id]: {
+                    selected: null,
+                    correct: false,
+                    correctAnswer: currentQ.correctAnswer || "",
+                  },
+                }));
+              })
+              .catch((err) => console.error("Error saving blank answer:", err));
+          }
+
+          // Move to next question
+          if (index < questions.length - 1) {
+            setCurrentIndex(index + 1);
+            startQuestionTimer(index + 1);
+          } else {
+            handleSubmitTest();
+          }
+
           return 0;
         }
         return prev - 1;
@@ -83,7 +116,10 @@ const Examination = () => {
   const handleUserSelectOption = async (questionId, optionText) => {
     if (selectedAnswers[questionId]) return;
     try {
-      const res = await axios.post(`http://localhost:3000/questions/${questionId}/answer`, { selected: optionText });
+      const res = await axios.post(
+        `http://localhost:3000/questions/${questionId}/answer`,
+        { selected: optionText }
+      );
       setSelectedAnswers((prev) => ({
         ...prev,
         [questionId]: {
@@ -97,21 +133,35 @@ const Examination = () => {
     }
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    const currentQ = questions[currentIndex];
+
+    if (!selectedAnswers[currentQ._id]) {
+      try {
+        await axios.post(`http://localhost:3000/questions/${currentQ._id}/answer`, { selected: null });
+        setSelectedAnswers((prev) => ({
+          ...prev,
+          [currentQ._id]: {
+            selected: null,
+            correct: false,
+            correctAnswer: currentQ.correctAnswer || "",
+          },
+        }));
+      } catch (err) {
+        console.error("Error saving blank answer:", err);
+      }
+    }
+
     if (currentIndex < questions.length - 1) {
-      const nextIndex = currentIndex + 1;
-      setCurrentIndex(nextIndex);
-      startQuestionTimer(questions[nextIndex].time || 5);
-    } else {
-      handleSubmitTest();
+      setCurrentIndex(currentIndex + 1);
+      startQuestionTimer(currentIndex + 1);
     }
   };
 
   const handlePrevQuestion = () => {
     if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      setCurrentIndex(prevIndex);
-      startQuestionTimer(questions[prevIndex].time || 5);
+      setCurrentIndex(currentIndex - 1);
+      startQuestionTimer(currentIndex - 1);
     }
   };
 
@@ -169,13 +219,14 @@ const Examination = () => {
         <p>
           Your Score: <strong>{score}</strong> / {questions.reduce((acc, q) => acc + (q.marks || 1), 0)}
         </p>
-        <button
+        <h3>Exam Submitted</h3>
+        {/* <button
           onClick={() => navigate("/")}
           className="btn btn-success"
           style={{ padding: "10px 20px", fontSize: 16, cursor: "pointer", borderRadius: 5, border: "none", color: "white", marginTop: 20 }}
         >
           Back to Home
-        </button>
+        </button> */}
       </div>
     );
   }
@@ -185,7 +236,6 @@ const Examination = () => {
 
   return (
     <div style={{ maxWidth: 600, margin: "30px auto", padding: 20, borderRadius: 8, boxShadow: "0 2px 8px rgba(0,0,0,0.1)", backgroundColor: "#fff" }}>
-      {/* Overall Timer */}
       <div style={{ marginBottom: 5 }}>
         <div style={{ height: 10, width: "100%", backgroundColor: "#ddd", borderRadius: 10, overflow: "hidden" }}>
           <div style={{ width: `${overallProgress}%`, height: "100%", backgroundColor: getProgressColor(), transition: "width 0.5s" }}></div>
@@ -193,7 +243,6 @@ const Examination = () => {
       </div>
       <div style={{ textAlign: "right", marginBottom: 15, fontWeight: 600 }}>Total Time Left: {formatTime(timeLeft)}</div>
 
-      {/* Current Question Timer */}
       <div style={{ marginBottom: 10 }}>
         <div style={{ height: 6, width: "100%", backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" }}>
           <div style={{ width: `${questionProgress}%`, height: "100%", backgroundColor: "#42a5f5", transition: "width 0.5s" }}></div>

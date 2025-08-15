@@ -365,7 +365,7 @@ const [expandedNews, setExpandedNews] = useState({}); // Track which news items 
                         placeholder="Author"
                       />
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <input
                         type="text"
                         name="image"
@@ -374,7 +374,7 @@ const [expandedNews, setExpandedNews] = useState({}); // Track which news items 
                         className="form-control"
                         placeholder="Image URL"
                       />
-                    </div>
+                    </div> */}
                     <div className="d-flex justify-content-between">
                       <button 
                         type="submit"
