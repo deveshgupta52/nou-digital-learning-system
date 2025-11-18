@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const StudentProfile = ({ studentData }) => {
+  const [profileImage, setProfileImage] = useState(studentData.profileImage);
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Convert to base64
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result;
+        try {
+          await axios.post(`http://localhost:3000/api/students/upload-image/${studentData.email}`, { image: base64 });
+          setProfileImage(base64);
+          alert('Image uploaded successfully!');
+        } catch (error) {
+          console.error('Upload error:', error);
+          alert('Failed to upload image.');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById('profileImageInput').click();
+  };
+
   return (
     <div className="container-fluid">
       <h3 className="mb-4">Student Profile</h3>
@@ -13,12 +40,30 @@ const StudentProfile = ({ studentData }) => {
             </div>
             <div className="card-body text-center">
               <div className="mb-3">
-                <div className="rounded-circle mx-auto d-flex align-items-center justify-content-center text-white fw-bold" 
-                     style={{ width: '120px', height: '120px', background: 'linear-gradient(135deg, #ff8c00, #ffa500)', fontSize: '2rem' }}>
-                  JS
-                </div>
+                {profileImage ? (
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="rounded-circle mx-auto"
+                    style={{ width: '120px', height: '120px', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div className="rounded-circle mx-auto d-flex align-items-center justify-content-center text-white fw-bold"
+                       style={{ width: '120px', height: '120px', background: 'linear-gradient(135deg, #ff8c00, #ffa500)', fontSize: '2rem' }}>
+                    {studentData.name ? studentData.name.charAt(0).toUpperCase() : 'S'}
+                  </div>
+                )}
               </div>
-              <button className="btn text-white" style={{ background: '#ff8c00' }}>Upload Photo</button>
+              <input
+                type="file"
+                id="profileImageInput"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+              />
+              <button className="btn text-white" style={{ background: '#ff8c00' }} onClick={triggerFileInput}>
+                {profileImage ? 'Change Photo' : 'Upload Photo'}
+              </button>
             </div>
           </div>
         </div>

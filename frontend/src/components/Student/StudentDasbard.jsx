@@ -19,7 +19,22 @@ const StudentDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [stData, setStData] = useState(null);
   const [courseData, setCourseData] = useState(null);
+  const [studentResults, setStudentResults] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/result/${stData.rollno}`);
+        setStudentResults(res.data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    if (stData) {
+      fetchResults();
+    }
+  }, [stData]);
 
   
   
@@ -38,7 +53,7 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     const email = localStorage.getItem("emailId");
-    const res = axios.get(`http://localhost:3000/students/${email}`)
+    const res = axios.get(`http://localhost:3000/api/students/${email}`)
     .then((res) => {
       setStData(res.data);
       setLoading(false);
@@ -60,6 +75,7 @@ const StudentDashboard = () => {
 
 
   const studentData = {
+    _id: stData._id,
     name: stData.name,
     id: stData.rollno,
     email: stData.emailaddress,
@@ -69,12 +85,13 @@ const StudentDashboard = () => {
     course: stData.courseCode,
     branch: stData.branch,
     year: stData.year,
-    semester: "1", 
+    semester: "1",
     enrollmentDate: stData.regdate.toString().slice(0, 10),
     attendance: 85,
     gpa: 1,
     permanentAddress: stData.address,
-    currentAddress: stData.address
+    currentAddress: stData.address,
+    profileImage: stData.profileImage
   };
 
 
@@ -210,8 +227,29 @@ const StudentDashboard = () => {
     }
   };
 
-  const handleSubmitExam = () => {
-    alert('Exam submitted successfully!');
+  const handleSubmitExam = async () => {
+    let calculatedScore = 0;
+    currentExam.questions.forEach((q) => {
+      if (examAnswers[q._id] && examAnswers[q._id].correct) {
+        calculatedScore += 1; // assuming 1 mark per question
+      }
+    });
+    const result = {
+      rollno: stData.rollno,
+      email: stData.emailaddress,
+      testName: currentExam.title,
+      totalMark: currentExam.questions.length,
+      getMark: calculatedScore,
+      examDate: new Date(),
+    };
+    try {
+      await axios.post('http://localhost:3000/result', result);
+      setStudentResults([...studentResults, result]);
+      alert(`Exam submitted successfully! Score: ${calculatedScore}/${currentExam.questions.length}`);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save result.');
+    }
     setCurrentExam(null);
     setCurrentQuestion(0);
     setExamAnswers({});
@@ -285,11 +323,56 @@ const StudentDashboard = () => {
       case 'timetables':
         return <Timetables timetableData={timetableData} />;
       case 'results':
-        return <h2>Result Not Declared</h2  >;
+        return (
+          <div className="container-fluid">
+            <h3 className="mb-4">Exam Results</h3>
+            {studentResults.length === 0 ? (
+              <p>No results available. Please take an exam first.</p>
+            ) : (
+              <div className="row">
+                {studentResults.map((result, index) => (
+                  <div key={index} className="col-md-6 mb-4">
+                    <div className="card shadow-sm">
+                      <div className="card-body">
+                        <h5 className="card-title">{result.testName}</h5>
+                        <p className="card-text">Score: {result.getMark} / {result.totalMark}</p>
+                        <p className="card-text">Date: {new Date(result.examDate).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
       case 'courses':
         return <Courses coursesData={coursesData} />;
       case 'exams':
-        return <Examination handleStartExam={handleStartExam}/>
+        return (
+          <div className="container-fluid">
+            <h3 className="mb-4">Available Exams</h3>
+            <div className="row">
+              {examsData.map((exam) => (
+                <div key={exam.id} className="col-md-6 mb-4">
+                  <div className="card shadow-sm">
+                    <div className="card-body">
+                      <h5 className="card-title">{exam.title}</h5>
+                      <p className="card-text">Subject: {exam.subject}</p>
+                      <p className="card-text">Duration: {exam.duration} minutes</p>
+                      <p className="card-text">Start: {exam.startTime}</p>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => handleStartExam(exam)}
+                      >
+                        Start Exam
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
       case 'questionbank':
         return <QuestionBank 
           questionBankData={questionBankData} 

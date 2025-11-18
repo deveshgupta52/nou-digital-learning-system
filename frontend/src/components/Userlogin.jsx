@@ -12,7 +12,7 @@ function Userlogin() {
     const user = { userid: email, password };
     
     try {
-      const res = await axios.post('http://localhost:3000/students/login', user);
+      const res = await axios.post('http://localhost:3000/api/students/login', user);
       const data = res.data;
 
       if (data.message === "Login successful") {
@@ -90,7 +90,7 @@ function Userlogin() {
 
   return (
     
-    <div style={styles.container} className="d-flex justify-content-center align-items-center px-0">
+    <div style={styles.container} className="d-flex justify-content-center align-items-center  ">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-7 col-sm-9">

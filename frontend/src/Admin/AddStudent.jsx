@@ -13,6 +13,7 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
     fname: '',
     mname: '',
     gender: '',
+    dob: '',
     address: '',
     courseCode: '',
     branch: '',
@@ -78,6 +79,7 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
         fname: '',
         mname: '',
         gender: '',
+        dob: '',
         address: '',
         courseCode: '',
         branch: '',
@@ -219,6 +221,18 @@ const AddStudent = ({ onStudentAdded, onCancel }) => {
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                   </select>
+                </div>
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Date of Birth</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dob"
+                    value={newStudent.dob}
+                    onChange={handleInputChange}
+                    required
+                    disabled={loading}
+                  />
                 </div>
                 <div className="col-md-6 mb-3">
                   <label className="form-label">courseCode</label>

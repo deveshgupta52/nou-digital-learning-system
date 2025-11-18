@@ -3,11 +3,15 @@ import mongoose, { mongo } from "mongoose";
 const resultSchema = mongoose.Schema({
     rollno : {
         type : Number,
-        required : true,
-        unique : true
+        required : true
     },
 
-    courseName : {
+    email : {
+        type : String,
+        required : true
+    },
+
+    testName : {
         type : String,
         required : true
     },
@@ -18,11 +22,13 @@ const resultSchema = mongoose.Schema({
     },
 
     getMark : {
-        type : Number
+        type : Number,
+        required : true
     },
 
     examDate : {
-        type : String,
+        type : Date,
+        default : Date.now
     }
 });
 

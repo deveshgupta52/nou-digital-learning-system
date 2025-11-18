@@ -31,7 +31,7 @@ function Registration() {
     e.preventDefault();
     try{
 
-const res=await axios.post("http://localhost:3000/students/register",formData);
+const res=await axios.post("http://localhost:3000/api/students/register",formData);
 
     console.log(res.data);
     navigate("/login");

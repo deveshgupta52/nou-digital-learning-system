@@ -74,6 +74,10 @@ const studentSchema = new mongoose.Schema(
       type:String,
       required:true
     },
+    profileImage: {
+      type: String,
+      default: null
+    },
     regdate: {
       type: Date,
       default:Date.now,

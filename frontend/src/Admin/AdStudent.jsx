@@ -20,6 +20,7 @@ const StudentManagement = ({ refreshDashboard }) => {
     fname: '',
     mname: '',
     gender: '',
+    dob: '',
     address: '',
     courseCode: '',
     branch: '',
@@ -33,7 +34,7 @@ const StudentManagement = ({ refreshDashboard }) => {
   const fetchStudents = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3000/students');
+      const response = await axios.get('http://localhost:3000/api/students');
       setStudents(response.data);
       setError('');
     } catch (err) {
@@ -74,7 +75,7 @@ const StudentManagement = ({ refreshDashboard }) => {
     try {
       setLoading(true);
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-      const response = await axios.patch(`http://localhost:3000/students/${id}/status`, { status: newStatus });
+      const response = await axios.patch(`http://localhost:3000/api/students/${id}/status`, { status: newStatus });
       
       // Update the student status in the state
       setStudents(students.map(student =>
@@ -112,7 +113,7 @@ const StudentManagement = ({ refreshDashboard }) => {
     if (window.confirm('Are you sure you want to delete this student? This action cannot be undone.')) {
       try {
         setLoading(true);
-        await axios.delete(`http://localhost:3000/students/${id}`);
+        await axios.delete(`http://localhost:3000/api/students/${id}`);
         // Remove the deleted student from the state
         setStudents(students.filter(student => student._id !== id));
         setError('');
@@ -176,7 +177,7 @@ const StudentManagement = ({ refreshDashboard }) => {
     
     try {
       setLoading(true);
-      const response = await axios.put(`http://localhost:3000/students/${editStudent._id}`, editStudent);
+      const response = await axios.put(`http://localhost:3000/api/students/${editStudent._id}`, editStudent);
       
       // Update the student in the state
       setStudents(students.map(student =>
@@ -364,6 +365,17 @@ const StudentManagement = ({ refreshDashboard }) => {
                       </select>
                     </div>
                     <div className="col-md-6 mb-3">
+                      <label className="form-label">Date of Birth</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="dob"
+                        value={editStudent.dob}
+                        onChange={handleEditInputChange}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-6 mb-3">
                       <label className="form-label">Course Code</label>
                       <input
                         type="text"
@@ -504,6 +516,10 @@ const StudentManagement = ({ refreshDashboard }) => {
                   <div className="col-md-6 mb-3">
                     <label className="form-label fw-bold">Gender</label>
                     <p className="form-control-plaintext">{selectedStudent.gender}</p>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label fw-bold">Date of Birth</label>
+                    <p className="form-control-plaintext">{new Date(selectedStudent.dob).toLocaleDateString()}</p>
                   </div>
                   <div className="col-md-6 mb-3">
                     <label className="form-label fw-bold">Course Code</label>

@@ -174,7 +174,7 @@ async function inserData() {
     try{
         await Student.deleteMany({});
         await Student.insertMany(data);
-        console.log("Data inseretd successfully");
+        console.log("Data inserted successfully");
     }
     catch(errr)  {
         console.log(err);

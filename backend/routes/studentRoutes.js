@@ -29,8 +29,25 @@ router.get("/:email", getStudentByRoll);
 router.post("/register", createStudent);
 
 router.put('/:id', async (req,res) => {
-  await Student.findByIdAndUpdate(req.params.id, req.body);
+  const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!updatedStudent) {
+    return res.status(404).json({ message: 'Student not found' });
+  }
+  res.json({ message: 'Student updated successfully', student: updatedStudent });
 })
+
+router.post('/upload-image/:email', async (req, res) => {
+  try {
+    const { image } = req.body;
+    const updatedStudent = await Student.findOneAndUpdate({ emailaddress: req.params.email }, { profileImage: image }, { new: true });
+    if (!updatedStudent) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    res.json({ message: 'Image uploaded successfully', student: updatedStudent });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 router.delete('/:id', async (req,res) => {
   await Student.findByIdAndDelete(req.params.id);
